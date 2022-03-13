@@ -1,38 +1,26 @@
-.App {
-  text-align: center;
+body {
+  margin: 0%;
+  padding: 0%;
 }
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+#pinterestimg {
+  width: 2.5rem;
+  height: 2.5rem;
+  object-fit: scale-down;
+  border-radius: 5rem;
 }
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+#profile {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
 }
-
-.App-link {
-  color: #61dafb;
+#inputtext {
+  width: 20rem;
+  height: 2.5rem;
+  border-radius: 5rem;
+  padding-left: 10px;
 }
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+#pinpost-btn {
+  position: fixed;
+  bottom: 5rem;
+  right: 1rem;
 }
