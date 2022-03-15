@@ -24,3 +24,27 @@ body {
   bottom: 5rem;
   right: 1rem;
 }
+
+.dropzone {
+  border: 3px dashed #eeeeee;
+  background-color: #fafafa;
+  margin: 5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#post-img-bg {
+  display: flex;
+  justify-content: center;
+}
+
+#post-img {
+  display: flex;
+  background-color: #efefef;
+  flex-direction: row;
+  width: 50rem;
+  gap: 1rem;
+  border-radius: 1rem;
+}

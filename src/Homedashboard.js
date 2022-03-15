@@ -1,7 +1,5 @@
 import { useState } from "react";
-
 import NotificationsIcon from "@mui/icons-material/Notifications";
-
 import MessageRoundedIcon from "@mui/icons-material/MessageRounded";
 import { TextField, IconButton, Button, Toolbar, Box } from "@mui/material";
 import ArrowDropDownOutlinedIcon from "@mui/icons-material/ArrowDropDownOutlined";
@@ -12,6 +10,7 @@ import { Home } from "./Home";
 import { Today } from "./Today";
 import { Profile } from "./Profile";
 import { Settings } from "./Settings";
+import { CreatePins } from "./CreatePins";
 
 export function Homedashboard() {
   const [userdetials, setUserdetials] = useState("");
@@ -142,6 +141,7 @@ export function Homedashboard() {
             },
           }}
           id="pinpost-btn"
+          onClick={() => History.push("/Home/createPins")}
         >
           <span style={{ fontSize: "3rem", color: "black" }}>+</span>
         </Button>
@@ -159,7 +159,12 @@ export function Homedashboard() {
         <Route path="/Home/settings">
           <Settings />
         </Route>
+        <Route path="/Home/createPins">
+          <CreatePins />
+        </Route>
       </Switch>
     </div>
   );
 }
+
+
