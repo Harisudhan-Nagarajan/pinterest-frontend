@@ -9,18 +9,12 @@ import { useFormik } from "formik";
 import * as yup from "yup";
 
 //popup dialog box for signup
-export function Signupdialog({ loginopen,open, handleClose }) {
-
+export function Signupdialog({ loginopen, open, handleClose }) {
   //error message for backend
   const [fetcherror, setfetcherror] = useState("");
 
   //yup validation
   const formvalidationSchema = yup.object({
-    name: yup
-      .string()
-      .min(6, "Username must be at least 6 characters")
-      .max(12, "Username must be at less then 12 characters")
-      .required("Username is required"),
     username: yup
       .string()
       .min(6, "Username must be at least 6 characters")
@@ -39,13 +33,16 @@ export function Signupdialog({ loginopen,open, handleClose }) {
         /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#!%&])/g,
         "Pattern is not matched"
       )
-      .required("Number is required"),
-    age: yup.number().required("Number is required"),
+      .required("Password is required"),
   });
 
   const { handleChange, handleSubmit, handleBlur, errors, values, touched } =
     useFormik({
-      initialValues: {name:"", username: "", email: "", password: "", age: "" },
+      initialValues: {
+        username: "",
+        email: "",
+        password: "",
+      },
       validationSchema: formvalidationSchema,
       onSubmit: async (values) => {
         await fetch("http://localhost:9000/users/signup", {
@@ -55,14 +52,13 @@ export function Signupdialog({ loginopen,open, handleClose }) {
         })
           .then((responce) => responce.json())
           .then((data) => {
-            if (data.acknowledged) {
+            if (data.message === "success") {
               handleClose();
               loginopen();
-
+              setfetcherror("");
               return;
             }
-            setfetcherror(data);
-            console.log(fetcherror.message);
+            setfetcherror(data.message);
           });
       },
     });
@@ -97,18 +93,6 @@ export function Signupdialog({ loginopen,open, handleClose }) {
         <span>Find new ideas to try</span>
         <div>
           <form onSubmit={handleSubmit}>
-          <TextField
-              margin="dense"
-              id="name"
-              className="name"
-              label="name"
-              type="text"
-              fullWidth
-              variant="standard"
-              onChange={handleChange}
-              onBlur={handleBlur}
-            />
-            {touched.name && errors.name ? errors.name : ""}
             <TextField
               margin="dense"
               id="username"
@@ -145,27 +129,15 @@ export function Signupdialog({ loginopen,open, handleClose }) {
               onBlur={handleBlur}
             />
             {touched.password && errors.password ? errors.password : ""}
-            <TextField
-              margin="dense"
-              id="age"
-              className="age"
-              label="Age"
-              type="number"
-              fullWidth
-              variant="standard"
-              onChange={handleChange}
-              onBlur={handleBlur}
-            />
-            {touched.age && errors.age ? errors.age : ""}
             <Button
               variant="contained"
               color="error"
               type="submit"
               sx={{ borderRadius: "2rem" }}
             >
-             Sign Up
+              Sign Up
             </Button>
-            {fetcherror.message}
+            {fetcherror}
           </form>
         </div>
       </Box>

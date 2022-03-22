@@ -15,29 +15,17 @@ export function Logindialog({ open, handleClose }) {
   const History = useHistory();
   //yup validation
   const formvalidationSchema = yup.object({
-    username: yup
-      .string()
-      .min(6, "Username must be at least 6 characters")
-      .max(12, "Username must be at less then 12 characters")
-      .required("Username is required"),
+    username: yup.string().required("username is required"),
 
-    password: yup
-      .string()
-      .min(8, "Password is too Small")
-      .max(14, "Password is to Big")
-      .matches(
-        /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#!%&])/g,
-        "Pattern is not matched"
-      )
-      .required("Password is required"),
+    password: yup.string().required("Password is required"),
   });
 
   const { handleChange, handleSubmit, handleBlur, errors, values, touched } =
     useFormik({
       initialValues: { username: "", password: "" },
       validationSchema: formvalidationSchema,
-      onSubmit: (values) => {
-        fetch("http://localhost:9000/users/signin", {
+      onSubmit: async (values) => {
+        await fetch("http://localhost:9000/users/signin", {
           method: "POST",
           body: JSON.stringify(values),
           headers: { "Content-Type": "application/json" },
@@ -50,7 +38,8 @@ export function Logindialog({ open, handleClose }) {
               History.push("/Home");
               return;
             }
-            setfetcherror(data);
+            setfetcherror(data.message);
+            console.log(data);
           });
       },
     });
@@ -75,54 +64,66 @@ export function Logindialog({ open, handleClose }) {
       aria-describedby="modal-modal-description"
     >
       <Box sx={style}>
-        <img
-          src="https://upload.wikimedia.org/wikipedia/commons/0/08/Pinterest-logo.png"
-          id="pinterestimg"
-        />
-        <IconButton onClick={handleClose}>
-          <CloseOutlinedIcon fontSize="large" />
-        </IconButton>
-        <strong>Welcome to Pinterest</strong>
-        <div>
-          <form onSubmit={handleSubmit}>
-            <TextField
-              autoFocus
-              margin="dense"
-              id="username"
-              className="username"
-              label="username"
-              type="text"
-              fullWidth
-              variant="standard"
-              onChange={handleChange}
-              onBlur={handleBlur}
-            />
-            {touched.username && errors.username ? errors.username : ""}
-            <TextField
-              margin="dense"
-              id="password"
-              className="password"
-              type="password"
-              label="password"
-              fullWidth
-              variant="standard"
-              onChange={handleChange}
-              onBlur={handleBlur}
-            />
-            {touched.password && errors.password ? errors.password : ""}
-            <Link href="#" underline="hover" sx={{ color: "black" }}>
-              <b>Forgotten your Password?</b>
-            </Link>
-            <Button
-              variant="contained"
-              type="submit"
-              color="error"
-              sx={{ borderRadius: "2rem" }}
-            >
-             Log in 
-            </Button>
-            {fetcherror.message ? fetcherror.message : ""}
-          </form>
+        <div id="loginpopup">
+          <img
+            src="https://upload.wikimedia.org/wikipedia/commons/0/08/Pinterest-logo.png"
+            id="pinterestimg"
+          />
+          <IconButton
+            onClick={handleClose}
+            sx={{ position: "absolute", top: 0, right: 0 }}
+          >
+            <CloseOutlinedIcon fontSize="large" />
+          </IconButton>
+          <strong>Welcome to Pinterest</strong>
+          <div>
+            <form onSubmit={handleSubmit}>
+              <TextField
+                autoFocus
+                margin="dense"
+                id="username"
+                className="username"
+                label="username"
+                type="text"
+                fullWidth
+                variant="standard"
+                onChange={handleChange}
+                onBlur={handleBlur}
+              />
+              {touched.username && errors.username ? errors.username : ""}
+              <TextField
+                margin="dense"
+                id="password"
+                className="password"
+                type="password"
+                label="password"
+                fullWidth
+                variant="standard"
+                onChange={handleChange}
+                onBlur={handleBlur}
+              />
+              {touched.password && errors.password ? errors.password : ""}
+              <br />
+              <Link
+                href="/finduser"
+                underline="hover"
+                sx={{ color: "black" }}
+              >
+                <b>Forgotten your Password?</b>
+              </Link>
+              <br /> <br />
+              <Button
+                variant="contained"
+                type="submit"
+                color="error"
+                sx={{ borderRadius: "2rem" }}
+              >
+                Log in
+              </Button>
+              <br />
+              {fetcherror ? fetcherror : ""}
+            </form>
+          </div>
         </div>
       </Box>
     </Modal>

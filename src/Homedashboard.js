@@ -77,11 +77,9 @@ export function Homedashboard() {
             >
               Today
             </Button>
-            <TextField
+            <input
               placeholder="🔍Search"
-              size="small"
-              fullWidth
-              id="fullWidth"
+             style={{"width":"200px"}}
             />
 
             <IconButton
