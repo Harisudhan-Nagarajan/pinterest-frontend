@@ -7,12 +7,15 @@ import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 import { useState } from "react";
 import { useFormik } from "formik";
 import * as yup from "yup";
-
+import { useHistory } from "react-router-dom";
+import { useContext } from "react";
+import { UserContext } from "./App";
 //popup dialog box for signup
-export function Signupdialog({ loginopen, open, handleClose }) {
-  //error message for backend
+export function Signupdialog({ signuppopup, setsignuppopup }) {
+  const { setinfo } = useContext(UserContext);
+  //error message from backend
   const [fetcherror, setfetcherror] = useState("");
-
+  const History = useHistory();
   //yup validation
   const formvalidationSchema = yup.object({
     username: yup
@@ -52,10 +55,12 @@ export function Signupdialog({ loginopen, open, handleClose }) {
         })
           .then((responce) => responce.json())
           .then((data) => {
-            if (data.message === "success") {
-              handleClose();
-              loginopen();
+            if (data.token) {
+              setsignuppopup(false);
               setfetcherror("");
+              sessionStorage.setItem("token", data.token);
+              sessionStorage.setItem("username", values.username);
+              History.push("/Home");
               return;
             }
             setfetcherror(data.message);
@@ -76,69 +81,75 @@ export function Signupdialog({ loginopen, open, handleClose }) {
   };
   return (
     <Modal
-      open={open}
-      onClose={handleClose}
+      open={signuppopup}
+      onClose={() => setsignuppopup(false)}
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"
     >
       <Box sx={style}>
-        <img
-          src="https://upload.wikimedia.org/wikipedia/commons/0/08/Pinterest-logo.png"
-          id="pinterestimg"
-        />
-        <IconButton onClick={handleClose}>
-          <CloseOutlinedIcon fontSize="large" />
-        </IconButton>
-        <strong>Welcome to Pinterest</strong>
-        <span>Find new ideas to try</span>
-        <div>
-          <form onSubmit={handleSubmit}>
-            <TextField
-              margin="dense"
-              id="username"
-              className="username"
-              label="username"
-              type="text"
-              fullWidth
-              variant="standard"
-              onChange={handleChange}
-              onBlur={handleBlur}
-            />
-            {touched.username && errors.username ? errors.username : ""}
-            <TextField
-              margin="dense"
-              id="email"
-              className="email"
-              label="Email Address"
-              type="email"
-              fullWidth
-              variant="standard"
-              onChange={handleChange}
-              onBlur={handleBlur}
-            />
-            {touched.email && errors.email ? errors.email : ""}
-            <TextField
-              margin="dense"
-              id="password"
-              className="password"
-              label="password"
-              type="password"
-              fullWidth
-              variant="standard"
-              onChange={handleChange}
-              onBlur={handleBlur}
-            />
-            {touched.password && errors.password ? errors.password : ""}
-            <Button
-              variant="contained"
-              color="error"
-              type="submit"
-              sx={{ borderRadius: "2rem" }}
-            >
-              Sign Up
-            </Button>
-            {fetcherror}
-          </form>
+        <div id="loginpopup">
+          <img
+            src="https://upload.wikimedia.org/wikipedia/commons/0/08/Pinterest-logo.png"
+            id="pinterestimg"
+          />
+          <IconButton
+            sx={{ position: "absolute", top: "5px", right: "7px" }}
+            onClick={() => setsignuppopup(false)}
+          >
+            <CloseOutlinedIcon fontSize="large" />
+          </IconButton>
+          <strong style={{ fontSize: "1.8rem" }}> Welcome to Pinterest</strong>
+          <span>Find new ideas to try</span>
+          <div>
+            <form onSubmit={handleSubmit}>
+              <TextField
+                margin="dense"
+                id="username"
+                className="username"
+                placeholder="username"
+                type="text"
+                fullWidth
+                variant="standard"
+                onChange={handleChange}
+                onBlur={handleBlur}
+              />
+              {touched.username && errors.username ? errors.username : ""}
+              <TextField
+                margin="dense"
+                id="email"
+                className="email"
+                placeholder="Email Address"
+                type="email"
+                fullWidth
+                variant="standard"
+                onChange={handleChange}
+                onBlur={handleBlur}
+              />
+              {touched.email && errors.email ? errors.email : ""}
+
+              <TextField
+                margin="dense"
+                id="password"
+                className="password"
+                placeholder="password"
+                type="password"
+                fullWidth
+                variant="standard"
+                onChange={handleChange}
+                onBlur={handleBlur}
+              />
+              {touched.password && errors.password ? errors.password : ""}
+              <Button
+                variant="contained"
+                color="error"
+                type="submit"
+                sx={{ borderRadius: "2rem" }}
+              >
+                Sign Up
+              </Button>
+              {fetcherror}
+            </form>
+          </div>
         </div>
       </Box>
     </Modal>

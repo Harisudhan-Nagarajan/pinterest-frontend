@@ -5,7 +5,7 @@ import { useFormik } from "formik";
 import { useHistory } from "react-router-dom";
 import * as yup from "yup";
 
-export function Passwordreset({ setOpennotification }) {
+export function Passwordreset({ setpasswordchange }) {
   const History = useHistory();
   const [fetcherror, setfetcherror] = useState("");
   const { handleChange, handleBlur, handleSubmit, errors, values, touched } =
@@ -39,7 +39,7 @@ export function Passwordreset({ setOpennotification }) {
             if (data.message === "password changed") {
               sessionStorage.clear();
               setfetcherror("");
-              setOpennotification(true);
+              setpasswordchange(true);
               History.push("/");
             }
             setfetcherror(data.message);

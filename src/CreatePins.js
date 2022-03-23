@@ -37,8 +37,9 @@ export function CreatePins() {
       body: data,
     })
       .then((result) => {
-        console.log("File Sent Successful");
+        result.json();
       })
+      .then((data) => console.log(data))
       .catch((err) => {
         console.log(err.message);
       });

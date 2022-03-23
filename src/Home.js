@@ -1,6 +1,8 @@
 import Box from "@mui/material/Box";
 import Masonry from "@mui/lab/Masonry";
-
+import { UserContext } from "./App";
+import { useContext } from "react";
+import { Modal } from "@mui/material";
 // function Home() {
 //   const [open, setOpen] = useState();
 //   const fetchs = () => {
@@ -142,8 +144,29 @@ export function Home() {
       author: "Hutomo Abrianto",
     },
   ];
+  const { info, setinfo } = useContext(UserContext);
+  const style = {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: 400,
+    bgcolor: "background.paper",
+    borderRadius: "2rem",
+    boxShadow: 24,
+    p: 4,
+  };
   return (
     <div>
+      <Modal
+        open={info}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+          <button onClick={() => setinfo(false)}>Close</button>
+        </Box>
+      </Modal>
       <Box sx={{ minHeight: 829, paddingTop: "5rem" }}>
         <Masonry columns={{ xs: 2, sm: 3, md: 4, lg: 5, xl: 6 }} spacing={2}>
           {itemDat.map((item, index) => (
@@ -159,7 +182,8 @@ export function Home() {
                   display: "block",
                   width: "100%",
                   borderRadius: "2rem",
-                }} />
+                }}
+              />
             </div>
           ))}
         </Masonry>

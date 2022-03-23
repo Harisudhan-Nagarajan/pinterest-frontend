@@ -137,23 +137,12 @@ export function Welcome() {
       author: "Hutomo Abrianto",
     },
   ];
-  const [open, setOpen] = useState(false);
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-  const handleClose = () => {
-    setOpen(false);
-  };
+  const [loginpopup, setloginpopup] = useState(false);
 
-  const [opens, setOpens] = useState(false);
-  const handleClickOpens = () => {
-    setOpens(true);
-  };
-  const handleCloses = () => {
-    setOpens(false);
-  };
+  const [signuppopup, setsignuppopup] = useState(false);
 
-  const [opennotification, setOpennotification] = useState(false);
+  const [passwordchange, setpasswordchange] = useState(false);
+
   return (
     <div className="container">
       <Box position="static" sx={{ color: "black" }}>
@@ -193,7 +182,7 @@ export function Welcome() {
               variant="contained"
               color="error"
               sx={{ borderRadius: "2rem", marginLeft: "2rem" }}
-              onClick={handleClickOpen}
+              onClick={() => setloginpopup(true)}
             >
               Log in
             </Button>
@@ -204,7 +193,7 @@ export function Welcome() {
                 color: "black",
                 marginLeft: ".5rem",
               }}
-              onClick={handleClickOpens}
+              onClick={() => setsignuppopup(true)}
               color="primary"
             >
               sign Up
@@ -224,22 +213,24 @@ export function Welcome() {
           <Checkresetcode />
         </Route>
         <Route exact path="/passwordreset">
-          <Passwordreset setOpennotification={setOpennotification}/>
+          <Passwordreset setpasswordchange={setpasswordchange} />
         </Route>
       </Switch>
       <div>
-        <Logindialog open={open} handleClose={handleClose} />
+        <Logindialog loginpopup={loginpopup} setloginpopup={setloginpopup} />
+
         <Signupdialog
-          loginopen={handleClickOpen}
-          open={opens}
-          handleClose={handleCloses}
+          signuppopup={signuppopup}
+          setsignuppopup={setsignuppopup}
         />
       </div>
       <Stack spacing={2} sx={{ width: "100%" }}>
-        <Snackbar open={opennotification} autoHideDuration={1200} onClose={()=>setOpennotification(false)} >
-          <Alert severity="success">
-            Password changed successfullly
-          </Alert>
+        <Snackbar
+          open={passwordchange}
+          autoHideDuration={1200}
+          onClose={() => setpasswordchange(false)}
+        >
+          <Alert severity="success">Password changed successfullly</Alert>
         </Snackbar>
       </Stack>
     </div>

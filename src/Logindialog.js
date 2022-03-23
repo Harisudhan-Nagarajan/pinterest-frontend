@@ -10,7 +10,7 @@ import { useFormik } from "formik";
 import * as yup from "yup";
 import { useHistory } from "react-router-dom";
 
-export function Logindialog({ open, handleClose }) {
+export function Logindialog({ loginpopup, setloginpopup }) {
   const [fetcherror, setfetcherror] = useState("");
   const History = useHistory();
   //yup validation
@@ -58,8 +58,8 @@ export function Logindialog({ open, handleClose }) {
 
   return (
     <Modal
-      open={open}
-      onClose={handleClose}
+      open={loginpopup}
+      onClose={() => setloginpopup(false)}
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"
     >
@@ -70,12 +70,14 @@ export function Logindialog({ open, handleClose }) {
             id="pinterestimg"
           />
           <IconButton
-            onClick={handleClose}
-            sx={{ position: "absolute", top: 0, right: 0 }}
+            onClick={() => setloginpopup(false)}
+            sx={{ position: "absolute", top: "5px", right: "7px" }}
           >
             <CloseOutlinedIcon fontSize="large" />
           </IconButton>
-          <strong>Welcome to Pinterest</strong>
+          <br />
+          <strong style={{ fontSize: "1.8rem" }}>Welcome to Pinterest</strong>
+          <br />
           <div>
             <form onSubmit={handleSubmit}>
               <TextField
@@ -83,7 +85,7 @@ export function Logindialog({ open, handleClose }) {
                 margin="dense"
                 id="username"
                 className="username"
-                label="username"
+                placeholder="username"
                 type="text"
                 fullWidth
                 variant="standard"
@@ -96,7 +98,7 @@ export function Logindialog({ open, handleClose }) {
                 id="password"
                 className="password"
                 type="password"
-                label="password"
+                placeholder="password"
                 fullWidth
                 variant="standard"
                 onChange={handleChange}
@@ -104,11 +106,7 @@ export function Logindialog({ open, handleClose }) {
               />
               {touched.password && errors.password ? errors.password : ""}
               <br />
-              <Link
-                href="/finduser"
-                underline="hover"
-                sx={{ color: "black" }}
-              >
+              <Link href="/finduser" underline="hover" sx={{ color: "black" }}>
                 <b>Forgotten your Password?</b>
               </Link>
               <br /> <br />

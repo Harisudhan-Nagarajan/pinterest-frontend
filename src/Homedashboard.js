@@ -1,11 +1,18 @@
 import { useState } from "react";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import MessageRoundedIcon from "@mui/icons-material/MessageRounded";
-import { TextField, IconButton, Button, Toolbar, Box } from "@mui/material";
+import {
+  TextField,
+  IconButton,
+  Button,
+  Toolbar,
+  Box,
+  Modal,
+} from "@mui/material";
 import ArrowDropDownOutlinedIcon from "@mui/icons-material/ArrowDropDownOutlined";
 import { useEffect } from "react";
-import { Buffer } from "buffer";
 import { Switch, Route, useHistory } from "react-router-dom";
+import { useContext } from "react";
 import { Home } from "./Home";
 import { Today } from "./Today";
 import { Profile } from "./Profile";
@@ -14,7 +21,9 @@ import { CreatePins } from "./CreatePins";
 
 export function Homedashboard() {
   const [userdetials, setUserdetials] = useState("");
+
   const History = useHistory();
+
   // const fetchuser = () => {
   //   fetch("http://localhost:9000/users/Home", {
   //     method: "post",
@@ -77,10 +86,7 @@ export function Homedashboard() {
             >
               Today
             </Button>
-            <input
-              placeholder="🔍Search"
-             style={{"width":"200px"}}
-            />
+            <input placeholder="🔍Search" style={{ width: "200px" }} />
 
             <IconButton
               size="large"
@@ -164,5 +170,3 @@ export function Homedashboard() {
     </div>
   );
 }
-
-
