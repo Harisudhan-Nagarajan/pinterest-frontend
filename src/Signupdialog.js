@@ -9,10 +9,10 @@ import { useFormik } from "formik";
 import * as yup from "yup";
 import { useHistory } from "react-router-dom";
 import { useContext } from "react";
-import { UserContext } from "./App";
+
 //popup dialog box for signup
 export function Signupdialog({ signuppopup, setsignuppopup }) {
-  const { setinfo } = useContext(UserContext);
+  
   //error message from backend
   const [fetcherror, setfetcherror] = useState("");
   const History = useHistory();

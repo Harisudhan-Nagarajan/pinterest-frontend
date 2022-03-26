@@ -34,36 +34,12 @@ export function Profile() {
       />
       <h1>{userdetials.name}</h1>
       <div>@{userdetials.username}</div>
-      <br/>
+      <br />
       <div>
-        <Button
-          size="large"
-          sx={{
-            borderRadius: "2rem",
-            color: "black",
-            backgroundColor: "#efefef",
-            "&:hover": {
-              backgroundColor: "#dad5d5",
-            },
-          }}
-        >
-          share
-        </Button>
-        <Button
-        onClick={()=>History.push("/Home/settings")}
-          size="large"
-          sx={{
-            borderRadius: "2rem",
-            color: "black",
-            backgroundColor: "#efefef",
-            marginLeft:"1rem",
-            "&:hover": {
-              backgroundColor: "#dad5d5",
-            },
-          }}
-        >
+        <button id="btnnn">Share</button>{" "}{" "}
+        <button onClick={() => History.push("/Home/settings")} id="btnnn">
           Edit Profile
-        </Button>
+        </button>
       </div>
     </div>
   );

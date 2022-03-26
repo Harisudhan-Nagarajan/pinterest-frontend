@@ -18,25 +18,31 @@ import { Today } from "./Today";
 import { Profile } from "./Profile";
 import { Settings } from "./Settings";
 import { CreatePins } from "./CreatePins";
+import { Searchresult } from "./Searchresult";
 
 export function Homedashboard() {
   const [userdetials, setUserdetials] = useState("");
 
+  const [searchvalue, setsearchvalue] = useState("");
+
   const History = useHistory();
 
-  // const fetchuser = () => {
-  //   fetch("http://localhost:9000/users/Home", {
-  //     method: "post",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //       "x-auth-token": sessionStorage.getItem("token"),
-  //       "username": sessionStorage.getItem("username"),
-  //     },
-  //   })
-  //     .then((responce) => responce.json())
-  //     .then((data) => setUserdetials(data));
-  // };
-  // useEffect(fetchuser, []);
+  const fetchuser = () => {
+    fetch("http://localhost:9000/users/Home", {
+      method: "get",
+      headers: {
+        "Content-Type": "application/json",
+        "x-auth-token": sessionStorage.getItem("token"),
+        username: sessionStorage.getItem("username"),
+      },
+    })
+      .then((responce) => responce.json())
+      .then((data) => {
+        console.log(data);
+        setUserdetials(data);
+      });
+  };
+  useEffect(fetchuser, []);
 
   return (
     <div>
@@ -65,6 +71,8 @@ export function Homedashboard() {
               sx={{
                 borderRadius: "2rem",
                 color: "black",
+                marginLeft: ".5rem",
+                marginRight: ".5rem",
                 backgroundColor: "white",
                 "&:hover": {
                   backgroundColor: "#dad5d5",
@@ -86,8 +94,17 @@ export function Homedashboard() {
             >
               Today
             </Button>
-            <input placeholder="🔍Search" style={{ width: "200px" }} />
-
+            <input
+              placeholder="Search"
+              className="searchbox"
+              onKeyDown={(e) => {
+                if (e.key === "Enter" && e.target.value.length) {
+                  setsearchvalue(e.target.value);
+                  History.push("/Home/search");
+                }
+              }}
+            />
+            <Searchdropdown />
             <IconButton
               size="large"
               sx={{
@@ -101,6 +118,8 @@ export function Homedashboard() {
             <IconButton
               size="large"
               sx={{
+                marginLeft: ".2rem",
+                marginRight: ".3rem",
                 "&:hover": {
                   backgroundColor: "#dad5d5",
                 },
@@ -134,6 +153,7 @@ export function Homedashboard() {
           </Toolbar>
         </Box>
       </div>
+
       <div>
         <Button
           sx={{
@@ -150,23 +170,139 @@ export function Homedashboard() {
           <span style={{ fontSize: "3rem", color: "black" }}>+</span>
         </Button>
       </div>
-      <Switch>
-        <Route exact path="/Home/">
-          <Home />
-        </Route>
-        <Route exact path="/Home/today">
-          <Today />
-        </Route>
-        <Route path="/Home/profile">
-          <Profile />
-        </Route>
-        <Route path="/Home/settings">
-          <Settings />
-        </Route>
-        <Route path="/Home/createPins">
-          <CreatePins />
-        </Route>
-      </Switch>
+      <div className="hoverdiv">
+        <Switch>
+          <Route exact path="/Home/">
+            <Home />
+          </Route>
+          <Route exact path="/Home/today">
+            <Today />
+          </Route>
+          <Route path="/Home/profile">
+            <Profile />
+          </Route>
+          <Route path="/Home/settings">
+            <Settings />
+          </Route>
+          <Route path="/Home/createPins">
+            <CreatePins />
+          </Route>
+          <Route path="/Home/search">
+            <Searchresult />
+          </Route>
+        </Switch>
+      </div>
     </div>
   );
 }
+
+function Searchdropdown() {
+  const feedelements = [
+    {
+      title: "Food",
+      img: "https://i.pinimg.com/564x/e2/34/d5/e234d531027f4c23a617e31fbd462731.jpg",
+      key: 1,
+      value: false,
+    },
+    {
+      title: "Bike",
+      img: "https://i.pinimg.com/564x/c5/55/2a/c5552a7723f73d33b7d754df08920e69.jpg",
+      key: 2,
+      value: false,
+    },
+    {
+      title: "Dog",
+      img: "https://i.pinimg.com/236x/6a/95/83/6a958390de7924f68e1dfbd57d8c41d6.jpg",
+      key: 3,
+      value: false,
+    },
+    {
+      title: "Marvel",
+      img: "https://i.pinimg.com/564x/df/00/d7/df00d72954d282702871c698c18ee5c4.jpg",
+      key: 4,
+      value: false,
+    },
+    {
+      title: "Tecnology",
+      img: "https://i.pinimg.com/564x/a4/47/7a/a4477ad60b21aa75981c01a955fafa40.jpg",
+      key: 5,
+      value: false,
+    },
+    {
+      title: "Travel",
+      img: "https://i.pinimg.com/564x/24/6b/62/246b62610fe5befa74be3fbcacec39c5.jpg",
+      key: 6,
+      value: false,
+    },
+    {
+      title: "Fashion",
+      img: "https://i.pinimg.com/564x/4f/cc/27/4fcc279536439deca3e7ff4ea6ee4ebf.jpg",
+      key: 7,
+      value: false,
+    },
+    {
+      title: "Love Qutoes",
+      img: "https://i.pinimg.com/564x/95/2e/d8/952ed86a4328cf3b742933c6e1fe683e.jpg",
+      key: 8,
+      value: false,
+    },
+    {
+      title: "Drawing",
+      img: "https://i.pinimg.com/564x/00/10/62/0010627b8772f4167bce63e31b091143.jpg",
+      key: 9,
+      value: false,
+    },
+    {
+      title: "Car",
+      img: "https://i.pinimg.com/236x/e8/58/c1/e858c12921686832755e58dab3d7ca4b.jpg",
+      key: 10,
+      value: false,
+    },
+    {
+      title: "Nature",
+      img: "https://i.pinimg.com/236x/12/aa/c9/12aac9a9f6b6433d1cf5b0db0d2fc8d5.jpg",
+      key: 11,
+      value: false,
+    },
+    {
+      title: "Animals",
+      img: "https://i.pinimg.com/236x/9c/31/32/9c3132b741594f7b6f0684f30eb08590.jpg",
+      key: 12,
+      value: false,
+    },
+  ];
+  return (
+    <div className="searchdropdown">
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          flexWrap: "wrap",
+          justifyContent: "space-evenly",
+        }}
+      >
+        {feedelements.map(({ key, img, title }) => (
+          <Mapsearchpin key={key} img={img} title={title} />
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function Mapsearchpin({ img, title }) {
+  return (
+    <IconButton
+      sx={{
+        borderRadius: "2rem",
+        "&:hover": {
+          backgroundColor: "#dad5d5",
+        },
+      }}
+    >
+      <img src={img} alt={title} id="imgsearchbox" />
+      <b className="search-btn-title">{title}</b>
+    </IconButton>
+  );
+}
+
+

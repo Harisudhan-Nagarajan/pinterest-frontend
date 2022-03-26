@@ -14,7 +14,7 @@ body {
   align-items: center;
 }
 
-#loginpopup{
+#loginpopup {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -62,10 +62,122 @@ body {
   font-size: 1.7rem;
 }
 
-
-#Passwordreset-main-div{
+#Passwordreset-main-div {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+#feedbox {
+  display: flex;
+  flex-flow: row wrap;
+  width: 800px;
+  height: 600px;
+  border: none;
+  overflow: auto;
+}
+
+.feedbox-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem 0rem;
+  align-items: center;
+  border-radius: 2rem;
+  padding: 1rem;
+  position: relative;
+  justify-content: center;
+}
+
+.feedbox-card:hover {
+  background-color: #efefef;
+}
+
+.title {
+  position: absolute;
+  color: white;
+  font-size: 1.5rem;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.searchbox {
+  width: 70rem;
+  height: 2.5rem;
+  border-radius: 2rem;
+  background-color: #dad5d5;
+  border: none;
+  font-size: 1rem;
+  padding-left: 1rem;
+  margin-left: 1rem;
+  margin-right: 1rem;
+  z-index: 99;
+}
+
+.searchbox:focus {
+  /* outline: none !important; */
+  outline-color: #4a8ad4;
+  outline-width: thick;
+  /* #searchdropdown{
+    display: block;
+  }*/
+}
+
+.searchdropdown {
+  width: 60rem;
+  height: auto;
+  background-color: white;
+  position: fixed;
+  top: 3rem;
+  padding-top: 1rem;
+  display: none;
+  left: 17.5rem;
+  border-radius: 2rem;
+}
+.searchbox:focus + .searchdropdown {
+  /* outline: none !important; */
+  display: block !important;
+}
+
+.searchdropdown:hover {
+  display: block;
+}
+/* #container:hover ~ #cube { background-color: yellow; } */
+#imgsearchbox {
+  width: 15rem;
+  height: 5rem;
+  object-fit: cover;
+  border-radius: 2rem;
+  -webkit-filter: grayscale(50%);
+  filter: grayscale(50%);
+}
+
+.search-btn-title {
+  position: absolute;
+  color: white;
+  font-size: 1.5rem;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+#btnnn {
+  border-radius: 2rem;
+  border: none;
+  width: auto;
+  height: 2.5rem;
+  color: black;
+  font-size: 1.2rem;
+  background-color: #efefef;
+  transition-duration: 0.4s;
+  padding: 0.5rem;
+}
+
+#btnnn:hover {
+  background-color: #b9b6b6;
+}
+
+#btnnn:active {
+  transform: scale(0.98);
 }
