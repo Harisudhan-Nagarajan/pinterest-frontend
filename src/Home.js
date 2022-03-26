@@ -155,7 +155,7 @@ export function Home() {
 }
 
 function Feedselection() {
-  const [info, setinfo] = useState(false);
+  const [info, setinfo] = useState(true);
 
   const feedelements = [
     {
@@ -244,6 +244,7 @@ function Feedselection() {
     borderRadius: "2rem",
     border: "none",
     boxShadow: 24,
+    justifyContent: "center",
     p: 4,
   };
   return (
@@ -267,7 +268,8 @@ function Feedselection() {
           ))}
         </div>
 
-        {selected_feedelements.length >= 4 ? (
+        <div style={{display:"flex",flexDirection:"column" ,paddingTop:"1rem"}}>
+          {selected_feedelements.length >= 4 ? (
           <Button variant="contained" onClick={() => setinfo(false)}>
             Finish
           </Button>
@@ -276,6 +278,7 @@ function Feedselection() {
             {`Pick ${4 - selected_feedelements.length} more`}
           </Button>
         )}
+        </div>
       </Box>
     </Modal>
   );

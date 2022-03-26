@@ -181,3 +181,11 @@ body {
 #btnnn:active {
   transform: scale(0.98);
 }
+
+#explorebox {
+  top: 4rem;
+  height: 4rem;
+  position: fixed;
+  width: 100%;
+  background-color: white;
+}
