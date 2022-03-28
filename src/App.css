@@ -29,11 +29,12 @@ body {
 .dropzone {
   border: 3px dashed #eeeeee;
   background-color: #fafafa;
-  margin: 5rem;
   display: flex;
+  height: 28rem;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  width: 19rem;
 }
 
 #post-img-bg {
@@ -48,6 +49,8 @@ body {
   width: 50rem;
   gap: 1rem;
   border-radius: 1rem;
+  align-items: center;
+  justify-content: space-around;
 }
 
 #setting-outer-div {
@@ -139,7 +142,6 @@ body {
   /* outline: none !important; */
   display: block !important;
 }
-
 .searchdropdown:hover {
   display: block;
 }
@@ -182,10 +184,18 @@ body {
   transform: scale(0.98);
 }
 
-#explorebox {
+.explorebox {
   top: 4rem;
   height: 4rem;
   position: fixed;
   width: 100%;
   background-color: white;
+}
+
+h3.create{
+  position: sticky;
+  top: 4rem;
+  text-align: center;
+  background-color: white;
+  padding-bottom: 1rem;
 }

@@ -1,14 +1,30 @@
 import { useDropzone } from "react-dropzone";
-import { TextField } from "@mui/material";
+import { TextField, Button, IconButton } from "@mui/material";
 import { useEffect, useState } from "react";
 import BackupIcon from "@mui/icons-material/Backup";
-
+import Select from "react-select";
+import DeleteIcon from "@mui/icons-material/Delete";
 export function CreatePins() {
-  const [files, setFiles] = useState([]);
-  const [title, settitle] = useState("SUBA PIN");
-  const [aboutpin, setaboutpin] = useState([]);
-  const [link, setlink] = useState([]);
+  const [files, setFiles] = useState("");
+  const [title, settitle] = useState("");
+  const [aboutpin, setaboutpin] = useState("");
+  const [link, setlink] = useState("");
 
+  const options = [
+    { value: "Animals", label: "Animals" },
+    { value: "Dog", label: "Dog" },
+    { value: "Bike", label: "Bike" },
+    { value: "Marvel", label: "Marvel" },
+    { value: "Tecnology", label: "Tecnology" },
+    { value: "Travel", label: "Travel" },
+    { value: "Fashion", label: "Fashion" },
+    { value: "Love Qutoes", label: "Love Qutoes" },
+    { value: "Drawing", label: "Drawing" },
+    { value: "Car", label: "Car" },
+    { value: "Nature", label: "Nature" },
+    { value: "Food", label: "Food" },
+  ];
+  const [selectedOption, setSelectedOption] = useState(null);
   const { acceptedFiles, fileRejections, getRootProps, getInputProps } =
     useDropzone({
       accept: "image/jpeg,image/png",
@@ -19,6 +35,7 @@ export function CreatePins() {
         setFiles(file[0]);
       },
     });
+
   const postimg = () => {
     const data = new FormData();
 
@@ -45,50 +62,106 @@ export function CreatePins() {
       });
   };
   return (
-    <div style={{ paddingTop: "5rem", height: "30rem" }} id="post-img-bg">
+    <div style={{ paddingTop: "5rem", height: "35rem" }} id="post-img-bg">
       <div id="post-img">
+        {files ? (
+          <div
+            style={{ width: "20rem", height: "30rem", position: "relative" }}
+          >
+            <img
+              src={URL.createObjectURL(files)}
+              style={{
+                width: "100%",
+                height: "100%",
+                borderRadius: "1rem",
+              }}
+              alt="Thumb"
+            />
+            <IconButton
+              sx={{
+                backgroundColor: "white",
+                position: "absolute",
+                top: "50%",
+                left: "0%",
+                "&:hover": { backgroundColor: "white" },
+              }}
+              size="large"
+              onClick={() => setFiles()}
+            >
+              <DeleteIcon fontSize="inherit" />
+            </IconButton>
+          </div>
+        ) : (
+          <div
+            {...getRootProps({
+              className: "dropzone",
+              id: "dropzone",
+            })}
+          >
+            <input {...getInputProps({})} />
+            <BackupIcon />
+            <p>Drag and drop or click to upload</p>
+            <small style={{ position: "relative", top: "5rem" }}>
+              Recomendation: use high-quality .jpg files
+            </small>
+            <small style={{ position: "relative", top: "5rem" }}>
+              smaller than 16 MB
+            </small>
+          </div>
+        )}
+
         <div
-          {...getRootProps({
-            className: "dropzone",
-            id: "dropzone",
-          })}
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            width: "20rem",
+            height: "28rem",
+            justifyContent: "space-evenly",
+          }}
         >
-          <input {...getInputProps({})} />
-          <BackupIcon />
-          <p>Drag and drop or click to upload</p>
-          <small style={{ position: "relative", top: "5rem" }}>
-            Recomendation: use high-quality .jpg files
-          </small>
-          <small style={{ position: "relative", top: "5rem" }}>
-            smaller than 16 MB
-          </small>
-        </div>
-        <div>
+          <Select
+            defaultValue={selectedOption}
+            onChange={setSelectedOption}
+            options={options}
+            placeholder="Select Category"
+          />
           <TextField
             id="standard-basic"
             variant="standard"
+            placeholder="Add your title"
+            size="large"
             onChange={(event) => settitle(event.target.value)}
           />
-          <br />
-          <img
-            src="https://upload.wikimedia.org/wikipedia/commons/0/08/Pinterest-logo.png"
-            id="pinterestimg"
-          />
-          <b>Harisudhan</b>
-          <br />
+          <div style={{ display: "flex", alignItems: "center" }}>
+            <img
+              src="https://upload.wikimedia.org/wikipedia/commons/0/08/Pinterest-logo.png"
+              id="pinterestimg"
+            />
+            <b>Harisudhan</b>
+          </div>
           <TextField
             id="standard-basic"
             variant="standard"
             onChange={(event) => setaboutpin(event.target.value)}
           />
-          <br />
           <TextField
             id="standard-basic"
             variant="standard"
             onChange={(event) => setlink(event.target.value)}
           />
-          <br />
-          <button onClick={postimg}>SAVE</button>
+          <Button
+            variant="contained"
+            sx={{
+              backgroundColor: "#e60023",
+              color: "white",
+              "&:hover": {
+                backgroundColor: "#e60023",
+              },
+            }}
+            onClick={postimg}
+          >
+            SAVE
+          </Button>
         </div>
       </div>
     </div>
@@ -106,4 +179,11 @@ export function CreatePins() {
         <ul>{files}</ul>
       </aside>
     </section> */
+}
+
+{
+  /* <div>
+              <img src={URL.createObjectURL(files)} style={{width:"100%",height:"100%"}}alt="Thumb" />
+              <button onClick={() => setFiles()}>Remove This Image</button>
+            </div> */
 }

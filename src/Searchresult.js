@@ -7,19 +7,17 @@ import Masonry from "@mui/lab/Masonry";
 
 export function Searchresult({ searchvalue }) {
   const History = useHistory();
-  const location = useLocation();
-  console.log(location.pathname);
   return (
     <div
       style={{
         paddingTop: "5rem",
       }}
     >
-      <div id="explorebox">
-        <div style={{display:"flex",justifyContent:"center"}}>
+      <div className="explorebox" >
+        <div style={{ display: "flex", justifyContent: "center" }}>
           <Button
             sx={{ color: "black" }}
-            onClick={() => History.push("/Home/search/explore")}
+            onClick={() => History.push("/Home/search/")}
           >
             <b>Explore</b>
           </Button>
@@ -33,11 +31,11 @@ export function Searchresult({ searchvalue }) {
       </div>
       <div>
         <Switch>
-          <Route exact path={"/Home/search/explore"}>
+          <Route exact path={"/Home/search/"}>
             <Explore />
           </Route>
           <Route exact path={"/Home/search/profile"}>
-            <div>Profile</div>
+            <Profile />
           </Route>
         </Switch>
       </div>
@@ -169,7 +167,7 @@ function Explore() {
     },
   ];
   return (
-    <Box sx={{paddingTop:"3rem"}}>
+    <Box sx={{ paddingTop: "3rem" }}>
       <Masonry columns={{ xs: 2, sm: 3, md: 4, lg: 5, xl: 6 }} spacing={2}>
         {itemDat.map((item, index) => (
           <div key={index}>
@@ -190,5 +188,125 @@ function Explore() {
         ))}
       </Masonry>
     </Box>
+  );
+}
+
+function Profile() {
+  const profiles = [
+    {
+      name: "Hari",
+      profilePic:
+        "https://cdn.pixabay.com/photo/2018/01/14/23/12/nature-3082832__340.jpg",
+    },
+    {
+      name: "Hari",
+      profilePic:
+        "https://cdn.pixabay.com/photo/2018/01/14/23/12/nature-3082832__340.jpg",
+    },
+    {
+      name: "Hari",
+      profilePic:
+        "https://cdn.pixabay.com/photo/2018/01/14/23/12/nature-3082832__340.jpg",
+    },
+    {
+      name: "Hari",
+      profilePic:
+        "https://cdn.pixabay.com/photo/2018/01/14/23/12/nature-3082832__340.jpg",
+    },
+    {
+      name: "Hari",
+      profilePic:
+        "https://cdn.pixabay.com/photo/2018/01/14/23/12/nature-3082832__340.jpg",
+    },
+    {
+      name: "Hari",
+      profilePic:
+        "https://cdn.pixabay.com/photo/2018/01/14/23/12/nature-3082832__340.jpg",
+    },
+    {
+      name: "Hari",
+      profilePic:
+        "https://cdn.pixabay.com/photo/2018/01/14/23/12/nature-3082832__340.jpg",
+    },
+    {
+      name: "Hari",
+      profilePic:
+        "https://cdn.pixabay.com/photo/2018/01/14/23/12/nature-3082832__340.jpg",
+    },
+    {
+      name: "Hari",
+      profilePic:
+        "https://cdn.pixabay.com/photo/2018/01/14/23/12/nature-3082832__340.jpg",
+    },
+    {
+      name: "Hari",
+      profilePic:
+        "https://cdn.pixabay.com/photo/2018/01/14/23/12/nature-3082832__340.jpg",
+    },
+    {
+      name: "Hari",
+      profilePic:
+        "https://cdn.pixabay.com/photo/2018/01/14/23/12/nature-3082832__340.jpg",
+    },
+    {
+      name: "Hari",
+      profilePic:
+        "https://cdn.pixabay.com/photo/2018/01/14/23/12/nature-3082832__340.jpg",
+    },
+    {
+      name: "Hari",
+      profilePic:
+        "https://cdn.pixabay.com/photo/2018/01/14/23/12/nature-3082832__340.jpg",
+    },
+    {
+      name: "Hari",
+      profilePic:
+        "https://cdn.pixabay.com/photo/2018/01/14/23/12/nature-3082832__340.jpg",
+    },
+    {
+      name: "Hari",
+      profilePic:
+        "https://cdn.pixabay.com/photo/2018/01/14/23/12/nature-3082832__340.jpg",
+    },
+  ];
+  return (
+    <div
+      style={{
+        paddingTop: "3rem",
+        display: "flex",
+        alignItems: "center",
+        flexDirection: "column",
+        rowGap: "1rem",
+      }}
+    >
+      {profiles.map((profile, index) => (
+        <div
+          style={{
+            width: "20rem",
+            height: "4rem",
+            backgroundColor: "red",
+            display: "flex",
+            alignItems: "center",
+            columnGap: "1rem",
+            padding:".3rem"
+          }}
+          key={index}
+        >
+          <img
+            src={profile.profilePic}
+            style={{
+              width: "3rem",
+              height: "3rem",
+              borderRadius: "2rem",
+              objectFit: "cover",
+            }}
+          />
+          <b>{profile.name}</b>
+          <button style={{ marginLeft: "8.5rem" }} id="btnnn">
+            View
+          </button>
+        </div>
+      ))}
+    </div>
   );
 }

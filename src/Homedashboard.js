@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, createContext, useContext } from "react";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import MessageRoundedIcon from "@mui/icons-material/MessageRounded";
 import {
@@ -11,8 +11,7 @@ import {
 } from "@mui/material";
 import ArrowDropDownOutlinedIcon from "@mui/icons-material/ArrowDropDownOutlined";
 import { useEffect } from "react";
-import { Switch, Route, useHistory } from "react-router-dom";
-import { useContext } from "react";
+import { Switch, Route, useHistory, useLocation } from "react-router-dom";
 import { Home } from "./Home";
 import { Today } from "./Today";
 import { Profile } from "./Profile";
@@ -20,18 +19,32 @@ import { Settings } from "./Settings";
 import { CreatePins } from "./CreatePins";
 import { Searchresult } from "./Searchresult";
 
+const UserContext = createContext();
+
 export function Homedashboard() {
   const [userdetials, setUserdetials] = useState("");
 
   const [searchvalue, setsearchvalue] = useState("");
 
+  const [searchdropdown, setsearchdropdown] = useState("");
+
+  // styles={display:"none"}
+
   const History = useHistory();
+
+  // const location = useLocation();
+  const [path, setpath] = useState();
+  
+  // if (path === "/Home/search" || path === "/Home/search/profile") {
+  //   setsearchvalue("");
+  // }
 
   const fetchuser = () => {
     fetch("http://localhost:9000/users/Home", {
       method: "get",
       headers: {
         "Content-Type": "application/json",
+
         "x-auth-token": sessionStorage.getItem("token"),
         username: sessionStorage.getItem("username"),
       },
@@ -44,159 +57,180 @@ export function Homedashboard() {
   };
   useEffect(fetchuser, []);
 
+  const descRef = useRef();
+
+  const searchfunctions = (title) => {
+    History.push("/Home/search/");
+    descRef.current.blur();
+    setsearchvalue(title);
+  };
+  const values = {
+    searchfunctions: searchfunctions,
+    searchvalue: searchvalue,
+    setsearchvalue: setsearchvalue,
+  };
   return (
-    <div>
-      <div className="container">
-        <Box
-          position="fixed"
-          sx={{ color: "black", backgroundColor: "white", width: "100%" }}
-        >
-          <Toolbar>
-            <IconButton
-              sx={{
-                "&:hover": {
-                  backgroundColor: "#cdcdcd",
-                },
-              }}
-            >
-              <img
-                src="https://upload.wikimedia.org/wikipedia/commons/0/08/Pinterest-logo.png"
-                id="pinterestimg"
-              />
-            </IconButton>
-
-            <Button
-              onClick={() => History.push("/Home/")}
-              size="large"
-              sx={{
-                borderRadius: "2rem",
-                color: "black",
-                marginLeft: ".5rem",
-                marginRight: ".5rem",
-                backgroundColor: "white",
-                "&:hover": {
-                  backgroundColor: "#dad5d5",
-                },
-              }}
-            >
-              Home
-            </Button>
-            <Button
-              size="large"
-              sx={{
-                borderRadius: "2rem",
-                color: "black",
-                backgroundColor: "white",
-                "&:hover": {
-                  backgroundColor: "#dad5d5",
-                },
-              }}
-            >
-              Today
-            </Button>
-            <input
-              placeholder="Search"
-              className="searchbox"
-              onKeyDown={(e) => {
-                if (e.key === "Enter" && e.target.value.length) {
-                  setsearchvalue(e.target.value);
-                  History.push("/Home/search");
-                }
-              }}
-            />
-            <Searchdropdown />
-            <IconButton
-              size="large"
-              sx={{
-                "&:hover": {
-                  backgroundColor: "#dad5d5",
-                },
-              }}
-            >
-              <NotificationsIcon fontSize="inherit" />
-            </IconButton>
-            <IconButton
-              size="large"
-              sx={{
-                marginLeft: ".2rem",
-                marginRight: ".3rem",
-                "&:hover": {
-                  backgroundColor: "#dad5d5",
-                },
-              }}
-            >
-              <MessageRoundedIcon fontSize="inherit" />
-            </IconButton>
-            <IconButton
-              onClick={() => History.push("/Home/profile")}
-              size="small"
-              sx={{
-                "&:hover": {
-                  backgroundColor: "#dad5d5",
-                },
-              }}
-            >
-              <img
-                src="https://cdn.pixabay.com/photo/2018/01/14/23/12/nature-3082832__340.jpg"
-                id="pinterestimg"
-              />
-            </IconButton>
-            <IconButton
-              sx={{
-                "&:hover": {
-                  backgroundColor: "#dad5d5",
-                },
-              }}
-            >
-              <ArrowDropDownOutlinedIcon />
-            </IconButton>
-          </Toolbar>
-        </Box>
-      </div>
-
+    <UserContext.Provider value={values}>
       <div>
-        <Button
-          sx={{
-            borderRadius: "200%",
-            height: "4rem",
-            backgroundColor: "#efefef",
-            "&:hover": {
-              backgroundColor: "#dad5d5",
-            },
-          }}
-          id="pinpost-btn"
-          onClick={() => History.push("/Home/createPins")}
-        >
-          <span style={{ fontSize: "3rem", color: "black" }}>+</span>
-        </Button>
+        <div className="container">
+          <Box
+            position="fixed"
+            sx={{ color: "black", backgroundColor: "white", width: "100%" }}
+          >
+            <Toolbar>
+              <IconButton
+                sx={{
+                  "&:hover": {
+                    backgroundColor: "#cdcdcd",
+                  },
+                }}
+              >
+                <img
+                  src="https://upload.wikimedia.org/wikipedia/commons/0/08/Pinterest-logo.png"
+                  id="pinterestimg"
+                />
+              </IconButton>
+
+              <Button
+                onClick={() => History.push("/Home/")}
+                size="large"
+                sx={{
+                  borderRadius: "2rem",
+                  color: "black",
+                  marginLeft: ".5rem",
+                  marginRight: ".5rem",
+                  backgroundColor: "white",
+                  "&:hover": {
+                    backgroundColor: "#dad5d5",
+                  },
+                }}
+              >
+                Home
+              </Button>
+              <Button
+                size="large"
+                sx={{
+                  borderRadius: "2rem",
+                  color: "black",
+                  backgroundColor: "white",
+                  "&:hover": {
+                    backgroundColor: "#dad5d5",
+                  },
+                }}
+              >
+                Today
+              </Button>
+              <input
+                placeholder="Search"
+                className="searchbox"
+                value={searchvalue}
+                ref={descRef}
+                onChange={(e) => setsearchvalue(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" && e.target.value.length > 0) {
+                    setsearchvalue(e.target.value);
+                    History.push("/Home/search/profile");
+                    descRef.current.blur();
+                    return;
+                  }
+                }}
+              />
+              <Searchdropdown />
+              <IconButton
+                size="large"
+                sx={{
+                  "&:hover": {
+                    backgroundColor: "#dad5d5",
+                  },
+                }}
+              >
+                <NotificationsIcon fontSize="inherit" />
+              </IconButton>
+              <IconButton
+                size="large"
+                sx={{
+                  marginLeft: ".2rem",
+                  marginRight: ".3rem",
+                  "&:hover": {
+                    backgroundColor: "#dad5d5",
+                  },
+                }}
+              >
+                <MessageRoundedIcon fontSize="inherit" />
+              </IconButton>
+              <IconButton
+                onClick={() => History.push("/Home/profile")}
+                size="small"
+                sx={{
+                  "&:hover": {
+                    backgroundColor: "#dad5d5",
+                  },
+                }}
+              >
+                <img
+                  src="https://cdn.pixabay.com/photo/2018/01/14/23/12/nature-3082832__340.jpg"
+                  id="pinterestimg"
+                />
+              </IconButton>
+              <IconButton
+                sx={{
+                  "&:hover": {
+                    backgroundColor: "#dad5d5",
+                  },
+                }}
+              >
+                <ArrowDropDownOutlinedIcon />
+              </IconButton>
+            </Toolbar>
+          </Box>
+        </div>
+
+        <div>
+          <Button
+            sx={{
+              borderRadius: "200%",
+              height: "4rem",
+              backgroundColor: "#efefef",
+              "&:hover": {
+                backgroundColor: "#dad5d5",
+              },
+            }}
+            id="pinpost-btn"
+            onClick={() => History.push("/Home/createPins")}
+          >
+            <span style={{ fontSize: "3rem", color: "black" }}>+</span>
+          </Button>
+        </div>
+        <div className="hoverdiv">
+          <Switch>
+            <Route exact path="/Home/">
+              <Home />
+            </Route>
+            <Route exact path="/Home/today">
+              <Today />
+            </Route>
+            <Route path="/Home/profile">
+              <Profile />
+            </Route>
+            <Route path="/Home/settings">
+              <Settings />
+            </Route>
+            <Route path="/Home/createPins">
+              <CreatePins />
+            </Route>
+            <Route path="/Home/search">
+              <Searchresult />
+            </Route>
+          </Switch>
+        </div>
       </div>
-      <div className="hoverdiv">
-        <Switch>
-          <Route exact path="/Home/">
-            <Home />
-          </Route>
-          <Route exact path="/Home/today">
-            <Today />
-          </Route>
-          <Route path="/Home/profile">
-            <Profile />
-          </Route>
-          <Route path="/Home/settings">
-            <Settings />
-          </Route>
-          <Route path="/Home/createPins">
-            <CreatePins />
-          </Route>
-          <Route path="/Home/search">
-            <Searchresult />
-          </Route>
-        </Switch>
-      </div>
-    </div>
+    </UserContext.Provider>
   );
 }
 
 function Searchdropdown() {
+  const { searchfunctions, setsearchvalue, searchvalue } =
+    useContext(UserContext);
   const feedelements = [
     {
       title: "Food",
@@ -282,14 +316,19 @@ function Searchdropdown() {
         }}
       >
         {feedelements.map(({ key, img, title }) => (
-          <Mapsearchpin key={key} img={img} title={title} />
+          <Mapsearchpin
+            key={key}
+            img={img}
+            title={title}
+            searchfunctions={searchfunctions}
+          />
         ))}
       </div>
     </div>
   );
 }
 
-function Mapsearchpin({ img, title }) {
+function Mapsearchpin({ img, title, searchfunctions }) {
   return (
     <IconButton
       sx={{
@@ -298,11 +337,10 @@ function Mapsearchpin({ img, title }) {
           backgroundColor: "#dad5d5",
         },
       }}
+      onClick={() => searchfunctions(title)}
     >
       <img src={img} alt={title} id="imgsearchbox" />
       <b className="search-btn-title">{title}</b>
     </IconButton>
   );
 }
-
-
