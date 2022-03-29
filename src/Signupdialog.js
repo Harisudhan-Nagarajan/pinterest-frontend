@@ -48,7 +48,7 @@ export function Signupdialog({ signuppopup, setsignuppopup }) {
       },
       validationSchema: formvalidationSchema,
       onSubmit: async (values) => {
-        await fetch("https://hari-pinterestbackend.herokuapp.com/users/signup", {
+        await fetch("https://hari-pinterestbackend.herokuapp.com/signup_login/signup", {
           method: "POST",
           body: JSON.stringify(values),
           headers: { "Content-Type": "application/json" },

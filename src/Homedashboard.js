@@ -40,7 +40,7 @@ export function Homedashboard() {
   // }
 
   const fetchuser = () => {
-    fetch("http://localhost:9000/users/Home", {
+    fetch("https://hari-pinterestbackend.herokuapp.com/users/Home", {
       method: "get",
       headers: {
         "Content-Type": "application/json",

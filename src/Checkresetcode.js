@@ -17,7 +17,7 @@ export function Checkresetcode() {
       resetusername: yup.string().required("Username is required"),
     }),
     onSubmit: async (values) => {
-      await fetch("https://hari-pinterestbackend.herokuapp.com/users/checkresetcode", {
+      await fetch("https://hari-pinterestbackend.herokuapp.com/signup_login/checkresetcode", {
         method: "POST",
         body: JSON.stringify(values),
         headers: { "Content-Type": "application/json" },

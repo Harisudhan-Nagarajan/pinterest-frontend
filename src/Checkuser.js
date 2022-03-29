@@ -14,7 +14,7 @@ export function Checkuser() {
       resetusername: yup.string().required("Username is required"),
     }),
     onSubmit: async (values) => {
-      await fetch("https://hari-pinterestbackend.herokuapp.com/users/forgetpass", {
+      await fetch("https://hari-pinterestbackend.herokuapp.com/signup_login/forgetpass", {
         method: "POST",
         body: JSON.stringify(values),
         headers: { "Content-Type": "application/json" },

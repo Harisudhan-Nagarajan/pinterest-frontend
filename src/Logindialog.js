@@ -25,7 +25,7 @@ export function Logindialog({ loginpopup, setloginpopup }) {
       initialValues: { username: "", password: "" },
       validationSchema: formvalidationSchema,
       onSubmit: async (values) => {
-        await fetch("https://hari-pinterestbackend.herokuapp.com/users/signin", {
+        await fetch("https://hari-pinterestbackend.herokuapp.com/signup_login/signin", {
           method: "POST",
           body: JSON.stringify(values),
           headers: { "Content-Type": "application/json" },

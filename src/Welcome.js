@@ -15,7 +15,6 @@ import Stack from "@mui/material/Stack";
 import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
 
-
 export function Welcome() {
   const itemDat = [
     {
@@ -226,6 +225,7 @@ export function Welcome() {
           setsignuppopup={setsignuppopup}
         />
       </div>
+      
       <Stack spacing={2} sx={{ width: "100%" }}>
         <Snackbar
           open={passwordchange}

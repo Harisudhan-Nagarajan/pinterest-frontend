@@ -26,7 +26,7 @@ export function Passwordreset({ setpasswordchange }) {
           .required("Password is required"),
       }),
       onSubmit: async (values) => {
-        await fetch("https://hari-pinterestbackend.herokuapp.com/users/changepassword", {
+        await fetch("https://hari-pinterestbackend.herokuapp.com/signup_login/changepassword", {
           method: "POST",
           body: JSON.stringify(values),
           headers: {
