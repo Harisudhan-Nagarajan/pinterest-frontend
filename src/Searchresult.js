@@ -281,14 +281,14 @@ function Profile() {
     >
       {profiles.map((profile, index) => (
         <div
+        id="profile-div"
           style={{
-            width: "20rem",
-            height: "4rem",
-            backgroundColor: "red",
+            width: "19rem",
             display: "flex",
+            borderRadius:"1rem",
             alignItems: "center",
             columnGap: "1rem",
-            padding:".3rem"
+            padding:".5rem",
           }}
           key={index}
         >
@@ -302,7 +302,7 @@ function Profile() {
             }}
           />
           <b>{profile.name}</b>
-          <button style={{ marginLeft: "8.5rem" }} id="btnnn">
+          <button style={{ marginLeft: "8rem" }} id="btnnn">
             View
           </button>
         </div>

@@ -1,8 +1,7 @@
-import { Box, Modal } from "@mui/material";
+import { Box, Modal, IconButton } from "@mui/material";
 import Masonry from "@mui/lab/Masonry";
 import { useState } from "react";
 import Button from "@mui/material/Button";
-
 
 export function Home() {
   const itemDat = [
@@ -74,19 +73,35 @@ export function Home() {
         <Masonry columns={{ xs: 2, sm: 3, md: 4, lg: 5, xl: 6 }} spacing={2}>
           {itemDat.map((item, index) => (
             <div key={index}>
-              <img
-                src={`${item.img}?w=162&auto=format`}
-                srcSet={`${item.img}?w=162&auto=format&dpr=2 2x`}
-                alt={item.title}
-                loading="lazy"
+              <button
+              id="pinbtn"
+              onClick={()=>console.log("press")}
                 style={{
-                  borderBottomLeftRadius: 4,
-                  borderBottomRightRadius: 4,
-                  display: "block",
                   width: "100%",
-                  borderRadius: "2rem",
+                  height: "100%",
+                  margin: "0",
+                  padding: "0",
+                  border: "none",
+                  backgroundColor: "white",
+                  "&:hover":{
+                    cursor: "zoom-in",
+                  }
                 }}
-              />
+              >
+                <img
+                  src={`${item.img}?w=162&auto=format`}
+                  srcSet={`${item.img}?w=162&auto=format&dpr=2 2x`}
+                  alt={item.title}
+                  loading="lazy"
+                  style={{
+                    borderBottomLeftRadius: 4,
+                    borderBottomRightRadius: 4,
+                    display: "block",
+                    width: "100%",
+                    borderRadius: "2rem",
+                  }}
+                />
+              </button>
             </div>
           ))}
         </Masonry>

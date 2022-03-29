@@ -165,19 +165,20 @@ body {
 }
 
 #btnnn {
-  border-radius: 2rem;
+  border-radius: 1.5rem;
   border: none;
   width: auto;
+  font-weight: bold;
   height: 2.5rem;
-  color: black;
-  font-size: 1.2rem;
+  font-size: 1rem;
   background-color: #efefef;
-  transition-duration: 0.4s;
+  transition-duration: 0.5s;
   padding: 0.5rem;
 }
 
 #btnnn:hover {
-  background-color: #b9b6b6;
+  background-color: #dfd9d9;
+  cursor: pointer;
 }
 
 #btnnn:active {
@@ -198,4 +199,15 @@ h3.create{
   text-align: center;
   background-color: white;
   padding-bottom: 1rem;
+}
+
+
+
+#pinbtn:hover{
+  background-color: #b9b6b6;
+  cursor: zoom-in;
+}
+
+#profile-div:hover{
+  background-color: #e0dbdb;
 }

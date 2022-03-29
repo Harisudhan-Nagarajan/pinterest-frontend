@@ -6,9 +6,9 @@ import Select from "react-select";
 import DeleteIcon from "@mui/icons-material/Delete";
 export function CreatePins() {
   const [files, setFiles] = useState("");
-  const [title, settitle] = useState("");
-  const [aboutpin, setaboutpin] = useState("");
-  const [link, setlink] = useState("");
+  const [title, settitle] = useState(" ");
+  const [aboutpin, setaboutpin] = useState(" ");
+  const [link, setlink] = useState(" ");
 
   const options = [
     { value: "Animals", label: "Animals" },
@@ -24,6 +24,7 @@ export function CreatePins() {
     { value: "Nature", label: "Nature" },
     { value: "Food", label: "Food" },
   ];
+
   const [selectedOption, setSelectedOption] = useState(null);
   const { acceptedFiles, fileRejections, getRootProps, getInputProps } =
     useDropzone({
@@ -45,7 +46,7 @@ export function CreatePins() {
     data.append("link", link);
     console.log(data);
 
-    fetch("http://localhost:9000/usersdetials/single", {
+    fetch("http://localhost:9000/pins/single", {
       method: "POST",
       headers: {
         "x-auth-token": sessionStorage.getItem("token"),
