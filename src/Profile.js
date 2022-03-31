@@ -71,7 +71,7 @@ export function Profile() {
   ];
 
   const getuserdetials = () => {
-    fetch("http://localhost:9000/users/Home", {
+    fetch("https://hari-pinterestbackend.herokuapp.com/profile/Home", {
       method: "get",
       headers: {
         username: sessionStorage.getItem("username"),

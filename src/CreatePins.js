@@ -25,7 +25,8 @@ export function CreatePins() {
     { value: "Food", label: "Food" },
   ];
 
-  const [selectedOption, setSelectedOption] = useState(null);
+  const [selectedOption, setSelectedOption] = useState("");
+
   const { acceptedFiles, fileRejections, getRootProps, getInputProps } =
     useDropzone({
       accept: "image/jpeg,image/png",
@@ -44,6 +45,7 @@ export function CreatePins() {
     data.append("title", title);
     data.append("aboutpin", aboutpin);
     data.append("link", link);
+    data.append("category", selectedOption.value);
     console.log(data);
 
     fetch("http://localhost:9000/pins/single", {
@@ -133,36 +135,63 @@ export function CreatePins() {
             size="large"
             onChange={(event) => settitle(event.target.value)}
           />
-          <div style={{ display: "flex", alignItems: "center" }}>
+          <div style={{ display: "flex", alignItems: "center" ,gap:".5rem"}}>
             <img
               src="https://upload.wikimedia.org/wikipedia/commons/0/08/Pinterest-logo.png"
               id="pinterestimg"
             />
-            <b>Harisudhan</b>
+            <b>{sessionStorage.getItem("username")}</b>
           </div>
           <TextField
             id="standard-basic"
             variant="standard"
+            placeholder="Tell me about your pin"
             onChange={(event) => setaboutpin(event.target.value)}
           />
           <TextField
             id="standard-basic"
             variant="standard"
+            placeholder="Add a destination link"
             onChange={(event) => setlink(event.target.value)}
           />
-          <Button
-            variant="contained"
-            sx={{
-              backgroundColor: "#e60023",
-              color: "white",
-              "&:hover": {
-                backgroundColor: "#e60023",
-              },
-            }}
-            onClick={postimg}
-          >
-            SAVE
-          </Button>
+          {files && selectedOption ? (
+            <div style={{ display: "flex", flexDirection: "column" }}>
+              <Button
+                variant="contained"
+                sx={{
+                  backgroundColor: "#e60023",
+                  color: "white",
+                  "&:hover": {
+                    backgroundColor: "#e60023",
+                  },
+                }}
+              >
+                SAVE
+              </Button>
+              <small style={{ color: "#e60023" }}>
+                *Must select Image and category
+              </small>
+            </div>
+          ) : (
+            <div style={{ display: "flex", flexDirection: "column" }}>
+              <Button
+                disabled
+                variant="contained"
+                sx={{
+                  backgroundColor: "#e60023",
+                  color: "white",
+                  "&:hover": {
+                    backgroundColor: "#e60023",
+                  },
+                }}
+              >
+                SAVE
+              </Button>
+              <small style={{ color: "#e60023" }}>
+                *Must slect Image and category
+              </small>
+            </div>
+          )}
         </div>
       </div>
     </div>

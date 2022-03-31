@@ -18,11 +18,12 @@ import { Profile } from "./Profile";
 import { Settings } from "./Settings";
 import { CreatePins } from "./CreatePins";
 import { Searchresult } from "./Searchresult";
+import { Profileview } from "./profileview";
 
-const UserContext = createContext();
+export const UserContext = createContext();
 
 export function Homedashboard() {
-  const [userdetials, setUserdetials] = useState("");
+  const [userdetials, setUserdetials] = useState(null);
 
   const [searchvalue, setsearchvalue] = useState("");
 
@@ -34,29 +35,28 @@ export function Homedashboard() {
 
   // const location = useLocation();
   const [path, setpath] = useState();
-  
+
   // if (path === "/Home/search" || path === "/Home/search/profile") {
   //   setsearchvalue("");
   // }
 
-  const fetchuser = () => {
-    fetch("https://hari-pinterestbackend.herokuapp.com/users/Home", {
+  const fetchuser = async () => {
+    await fetch("https://hari-pinterestbackend.herokuapp.com/profile/Home", {
       method: "get",
       headers: {
         "Content-Type": "application/json",
-
         "x-auth-token": sessionStorage.getItem("token"),
         username: sessionStorage.getItem("username"),
       },
     })
-      .then((responce) => responce.json())
+      .then((data) => data.json())
       .then((data) => {
         console.log(data);
-        setUserdetials(data);
-      });
+        setUserdetials(data)})
+      .catch((err) => console.log(err));
   };
-  useEffect(fetchuser, []);
 
+  useEffect(fetchuser, []);
   const descRef = useRef();
 
   const searchfunctions = (title) => {
@@ -64,166 +64,177 @@ export function Homedashboard() {
     descRef.current.blur();
     setsearchvalue(title);
   };
+
   const values = {
     searchfunctions: searchfunctions,
     searchvalue: searchvalue,
+    userdetials: userdetials,
     setsearchvalue: setsearchvalue,
+    setUserdetials:setUserdetials,
   };
+
   return (
     <UserContext.Provider value={values}>
-      <div>
-        <div className="container">
-          <Box
-            position="fixed"
-            sx={{ color: "black", backgroundColor: "white", width: "100%" }}
-          >
-            <Toolbar>
-              <IconButton
-                sx={{
-                  "&:hover": {
-                    backgroundColor: "#cdcdcd",
-                  },
-                }}
-              >
-                <img
-                  src="https://upload.wikimedia.org/wikipedia/commons/0/08/Pinterest-logo.png"
-                  id="pinterestimg"
-                />
-              </IconButton>
-
-              <Button
-                onClick={() => History.push("/Home/")}
-                size="large"
-                sx={{
-                  borderRadius: "2rem",
-                  color: "black",
-                  marginLeft: ".5rem",
-                  marginRight: ".5rem",
-                  backgroundColor: "white",
-                  "&:hover": {
-                    backgroundColor: "#dad5d5",
-                  },
-                }}
-              >
-                Home
-              </Button>
-              <Button
-                size="large"
-                sx={{
-                  borderRadius: "2rem",
-                  color: "black",
-                  backgroundColor: "white",
-                  "&:hover": {
-                    backgroundColor: "#dad5d5",
-                  },
-                }}
-              >
-                Today
-              </Button>
-              <input
-                placeholder="Search"
-                className="searchbox"
-                value={searchvalue}
-                ref={descRef}
-                onChange={(e) => setsearchvalue(e.target.value)}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter" && e.target.value.length > 0) {
-                    setsearchvalue(e.target.value);
-                    History.push("/Home/search/profile");
-                    descRef.current.blur();
-                    return;
-                  }
-                }}
-              />
-              <Searchdropdown />
-              <IconButton
-                size="large"
-                sx={{
-                  "&:hover": {
-                    backgroundColor: "#dad5d5",
-                  },
-                }}
-              >
-                <NotificationsIcon fontSize="inherit" />
-              </IconButton>
-              <IconButton
-                size="large"
-                sx={{
-                  marginLeft: ".2rem",
-                  marginRight: ".3rem",
-                  "&:hover": {
-                    backgroundColor: "#dad5d5",
-                  },
-                }}
-              >
-                <MessageRoundedIcon fontSize="inherit" />
-              </IconButton>
-              <IconButton
-                onClick={() => History.push("/Home/profile")}
-                size="small"
-                sx={{
-                  "&:hover": {
-                    backgroundColor: "#dad5d5",
-                  },
-                }}
-              >
-                <img
-                  src="https://cdn.pixabay.com/photo/2018/01/14/23/12/nature-3082832__340.jpg"
-                  id="pinterestimg"
-                />
-              </IconButton>
-              <IconButton
-                sx={{
-                  "&:hover": {
-                    backgroundColor: "#dad5d5",
-                  },
-                }}
-              >
-                <ArrowDropDownOutlinedIcon />
-              </IconButton>
-            </Toolbar>
-          </Box>
-        </div>
-
+      {userdetials ? (
         <div>
-          <Button
-            sx={{
-              borderRadius: "200%",
-              height: "4rem",
-              backgroundColor: "#efefef",
-              "&:hover": {
-                backgroundColor: "#dad5d5",
-              },
-            }}
-            id="pinpost-btn"
-            onClick={() => History.push("/Home/createPins")}
-          >
-            <span style={{ fontSize: "3rem", color: "black" }}>+</span>
-          </Button>
+          <div className="container">
+            <Box
+              position="fixed"
+              sx={{ color: "black", backgroundColor: "white", width: "100%" }}
+            >
+              <Toolbar>
+                <IconButton
+                  sx={{
+                    "&:hover": {
+                      backgroundColor: "#cdcdcd",
+                    },
+                  }}
+                >
+                  <img
+                    src="https://upload.wikimedia.org/wikipedia/commons/0/08/Pinterest-logo.png"
+                    id="pinterestimg"
+                  />
+                </IconButton>
+
+                <Button
+                  onClick={() => History.push("/Home/")}
+                  size="large"
+                  sx={{
+                    borderRadius: "2rem",
+                    color: "black",
+                    marginLeft: ".5rem",
+                    marginRight: ".5rem",
+                    backgroundColor: "white",
+                    "&:hover": {
+                      backgroundColor: "#dad5d5",
+                    },
+                  }}
+                >
+                  Home
+                </Button>
+                <Button
+                  size="large"
+                  sx={{
+                    borderRadius: "2rem",
+                    color: "black",
+                    backgroundColor: "white",
+                    "&:hover": {
+                      backgroundColor: "#dad5d5",
+                    },
+                  }}
+                >
+                  Today
+                </Button>
+                <input
+                  placeholder="Search"
+                  className="searchbox"
+                  value={searchvalue}
+                  ref={descRef}
+                  onChange={(e) => setsearchvalue(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" && e.target.value.length > 0) {
+                      setsearchvalue(e.target.value);
+                      History.push("/Home/search/profile");
+                      descRef.current.blur();
+                      return;
+                    }
+                  }}
+                />
+                <Searchdropdown />
+                <IconButton
+                  size="large"
+                  sx={{
+                    "&:hover": {
+                      backgroundColor: "#dad5d5",
+                    },
+                  }}
+                >
+                  <NotificationsIcon fontSize="inherit" />
+                </IconButton>
+                <IconButton
+                  size="large"
+                  sx={{
+                    marginLeft: ".2rem",
+                    marginRight: ".3rem",
+                    "&:hover": {
+                      backgroundColor: "#dad5d5",
+                    },
+                  }}
+                >
+                  <MessageRoundedIcon fontSize="inherit" />
+                </IconButton>
+                <IconButton
+                  onClick={() => History.push("/Home/profile")}
+                  size="small"
+                  sx={{
+                    "&:hover": {
+                      backgroundColor: "#dad5d5",
+                    },
+                  }}
+                >
+                  <img
+                    src={`https://hari-pinterestbackend.herokuapp.com${userdetials.profilepic}`}
+                    id="pinterestimg"
+                  />
+                </IconButton>
+                <IconButton
+                  sx={{
+                    "&:hover": {
+                      backgroundColor: "#dad5d5",
+                    },
+                  }}
+                >
+                  <ArrowDropDownOutlinedIcon />
+                </IconButton>
+              </Toolbar>
+            </Box>
+          </div>
+
+          <div>
+            <Button
+              sx={{
+                borderRadius: "200%",
+                height: "4rem",
+                backgroundColor: "#efefef",
+                "&:hover": {
+                  backgroundColor: "#dad5d5",
+                },
+              }}
+              id="pinpost-btn"
+              onClick={() => History.push("/Home/createPins")}
+            >
+              <span style={{ fontSize: "3rem", color: "black" }}>+</span>
+            </Button>
+          </div>
+          <div className="hoverdiv">
+            <Switch>
+              <Route exact path="/Home/">
+                <Home />
+              </Route>
+              <Route exact path="/Home/today">
+                <Today />
+              </Route>
+              <Route path="/Home/profile">
+                <Profile />
+              </Route>
+              <Route path="/Home/settings">
+                <Settings />
+              </Route>
+              <Route path="/Home/createPins">
+                <CreatePins />
+              </Route>
+              <Route path="/Home/search">
+                <Searchresult />
+              </Route>
+            </Switch>
+            <Route path="/Home/profileview/:name">
+              <Profileview />
+            </Route>
+          </div>
         </div>
-        <div className="hoverdiv">
-          <Switch>
-            <Route exact path="/Home/">
-              <Home />
-            </Route>
-            <Route exact path="/Home/today">
-              <Today />
-            </Route>
-            <Route path="/Home/profile">
-              <Profile />
-            </Route>
-            <Route path="/Home/settings">
-              <Settings />
-            </Route>
-            <Route path="/Home/createPins">
-              <CreatePins />
-            </Route>
-            <Route path="/Home/search">
-              <Searchresult />
-            </Route>
-          </Switch>
-        </div>
-      </div>
+      ) : (
+        <></>
+      )}
     </UserContext.Provider>
   );
 }

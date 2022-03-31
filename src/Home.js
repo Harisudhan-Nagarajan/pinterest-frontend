@@ -1,9 +1,43 @@
 import { Box, Modal, IconButton } from "@mui/material";
 import Masonry from "@mui/lab/Masonry";
-import { useState } from "react";
+import { useState, useEffect, useContext } from "react";
 import Button from "@mui/material/Button";
-
+import { UserContext } from "./Homedashboard";
 export function Home() {
+  const { userdetials, setUserdetials } = useContext(UserContext);
+
+  // const fetchuser = async () => {
+  //   await fetch("https://hari-pinterestbackend.herokuapp.com/profile/Home", {
+  //     method: "get",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //       "x-auth-token": sessionStorage.getItem("token"),
+  //       username: sessionStorage.getItem("username"),
+  //     },
+  //   })
+  //     .then((data) => data.json())
+  //     .then((data) => console.log(data))
+  //     .catch((err) => console.log(err));
+  // };
+  // useEffect(fetchuser, []);
+  return <div>{userdetials.setup ? <Feedselection /> : <Homefeeds />}</div>;
+}
+
+function Homefeeds() {
+  // const fetchuser = async () => {
+  //   await fetch("https://hari-pinterestbackend.herokuapp.com/profile/Home", {
+  //     method: "get",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //       "x-auth-token": sessionStorage.getItem("token"),
+  //       username: sessionStorage.getItem("username"),
+  //     },
+  //   })
+  //     .then((data) => data.json())
+  //     .then((data) => console.log(data))
+  //     .catch((err) => console.log(err));
+  // };
+  // useEffect(fetchuser, []);
   const itemDat = [
     {
       img: "https://images.unsplash.com/photo-1549388604-817d15aa0110",
@@ -67,52 +101,49 @@ export function Home() {
     },
   ];
   return (
-    <div>
-      <Feedselection />
-      <Box sx={{ minHeight: 829, paddingTop: "5rem" }}>
-        <Masonry columns={{ xs: 2, sm: 3, md: 4, lg: 5, xl: 6 }} spacing={2}>
-          {itemDat.map((item, index) => (
-            <div key={index}>
-              <button
+    <Box sx={{ minHeight: 829, paddingTop: "5rem" }}>
+      <Masonry columns={{ xs: 2, sm: 3, md: 4, lg: 5, xl: 6 }} spacing={2}>
+        {itemDat.map((item, index) => (
+          <div key={index}>
+            <button
               id="pinbtn"
-              onClick={()=>console.log("press")}
+              onClick={() => console.log("press")}
+              style={{
+                width: "100%",
+                height: "100%",
+                margin: "0",
+                padding: "0",
+                border: "none",
+                backgroundColor: "white",
+                "&:hover": {
+                  cursor: "zoom-in",
+                },
+              }}
+            >
+              <img
+                src={`${item.img}?w=162&auto=format`}
+                srcSet={`${item.img}?w=162&auto=format&dpr=2 2x`}
+                alt={item.title}
+                loading="lazy"
                 style={{
+                  borderBottomLeftRadius: 4,
+                  borderBottomRightRadius: 4,
+                  display: "block",
                   width: "100%",
-                  height: "100%",
-                  margin: "0",
-                  padding: "0",
-                  border: "none",
-                  backgroundColor: "white",
-                  "&:hover":{
-                    cursor: "zoom-in",
-                  }
+                  borderRadius: "2rem",
                 }}
-              >
-                <img
-                  src={`${item.img}?w=162&auto=format`}
-                  srcSet={`${item.img}?w=162&auto=format&dpr=2 2x`}
-                  alt={item.title}
-                  loading="lazy"
-                  style={{
-                    borderBottomLeftRadius: 4,
-                    borderBottomRightRadius: 4,
-                    display: "block",
-                    width: "100%",
-                    borderRadius: "2rem",
-                  }}
-                />
-              </button>
-            </div>
-          ))}
-        </Masonry>
-      </Box>
-    </div>
+              />
+            </button>
+          </div>
+        ))}
+      </Masonry>
+    </Box>
   );
 }
 
 function Feedselection() {
-  const [info, setinfo] = useState(false);
-
+  const [info, setinfo] = useState(true);
+  const { userdetials, setUserdetials } = useContext(UserContext);
   const feedelements = [
     {
       title: "Food",
@@ -187,9 +218,29 @@ function Feedselection() {
       value: false,
     },
   ];
-  const [err, seterr] = useState("");
+
   const [selected_feedelements, setselected_feedelements] = useState([]);
-  const [show, setshow] = useState("disabled");
+  const postfeed = async () => {
+    await fetch(
+      "https://hari-pinterestbackend.herokuapp.com/profile/postfeed",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "x-auth-token": sessionStorage.getItem("token"),
+          username: sessionStorage.getItem("username"),
+        },
+        body: JSON.stringify({ feed: selected_feedelements }),
+      }
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.message === "success") {
+          setUserdetials({ ...userdetials, setup: false });
+        }
+      });
+  };
+  console.log(selected_feedelements);
   const style = {
     position: "absolute",
     top: "50%",
@@ -232,7 +283,7 @@ function Feedselection() {
           }}
         >
           {selected_feedelements.length >= 4 ? (
-            <Button variant="contained" onClick={() => setinfo(false)}>
+            <Button variant="contained" onClick={() => postfeed()}>
               Finish
             </Button>
           ) : (
