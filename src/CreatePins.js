@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import BackupIcon from "@mui/icons-material/Backup";
 import Select from "react-select";
 import DeleteIcon from "@mui/icons-material/Delete";
+import { useHistory } from "react-router-dom";
 export function CreatePins() {
   const [files, setFiles] = useState("");
   const [title, settitle] = useState(" ");
@@ -24,7 +25,7 @@ export function CreatePins() {
     { value: "Nature", label: "Nature" },
     { value: "Food", label: "Food" },
   ];
-
+  const History = useHistory();
   const [selectedOption, setSelectedOption] = useState("");
 
   const { acceptedFiles, fileRejections, getRootProps, getInputProps } =
@@ -56,10 +57,12 @@ export function CreatePins() {
       },
       body: data,
     })
-      .then((result) => {
-        result.json();
-      })
-      .then((data) => console.log(data))
+      .then((responce) => responce.json())
+      .then((data) => {
+        if (data.message === "success") {
+          History.push("/Home/profile");
+        }
+      });
   };
   return (
     <div style={{ paddingTop: "5rem", height: "35rem" }} id="post-img-bg">
@@ -155,6 +158,7 @@ export function CreatePins() {
             <div style={{ display: "flex", flexDirection: "column" }}>
               <Button
                 variant="contained"
+                onClick={() => postimg()}
                 sx={{
                   backgroundColor: "#e60023",
                   color: "white",
