@@ -105,7 +105,7 @@ function Explore() {
 
 function Profile() {
   const { searchvalue } = useContext(UserContext);
-
+  const History = useHistory();
   const [user, setuser] = useState([]);
   const [haveuser, sethaveuser] = useState(false);
   const [message, setmessage] = useState();
@@ -146,7 +146,7 @@ function Profile() {
       }}
     >
       {haveuser ? (
-        user.map(({ profilepic, name }, index) => (
+        user.map(({ profilepic, name, username }, index) => (
           <div
             id="profile-div"
             style={{
@@ -169,7 +169,11 @@ function Profile() {
               }}
             />
             <b>{name}</b>
-            <button style={{ marginLeft: "6rem" }} id="btnnn">
+            <button
+              onClick={() => History.push(`/Home/profileview/${username}`)}
+              style={{ marginLeft: "6rem" }}
+              id="btnnn"
+            >
               View
             </button>
           </div>
