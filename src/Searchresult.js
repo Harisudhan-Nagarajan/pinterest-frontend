@@ -13,7 +13,7 @@ export function Searchresult({ searchvalue }) {
         paddingTop: "5rem",
       }}
     >
-      <div className="explorebox" >
+      <div className="explorebox">
         <div style={{ display: "flex", justifyContent: "center" }}>
           <Button
             sx={{ color: "black" }}
@@ -166,6 +166,20 @@ function Explore() {
       author: "Hutomo Abrianto",
     },
   ];
+  // const fetchuser = async () => {
+  //   await fetch("https://hari-pinterestbackend.herokuapp.com/profile/Home", {
+  //     method: "get",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //       "x-auth-token": sessionStorage.getItem("token"),
+  //       username: sessionStorage.getItem("username"),
+  //     },
+  //   })
+  //     .then((data) => data.json())
+  //     .then((data) => console.log(data))
+  //     .catch((err) => console.log(err));
+  // };
+  // useEffect(fetchuser, []);
   return (
     <Box sx={{ paddingTop: "3rem" }}>
       <Masonry columns={{ xs: 2, sm: 3, md: 4, lg: 5, xl: 6 }} spacing={2}>
@@ -281,14 +295,14 @@ function Profile() {
     >
       {profiles.map((profile, index) => (
         <div
-        id="profile-div"
+          id="profile-div"
           style={{
             width: "19rem",
             display: "flex",
-            borderRadius:"1rem",
+            borderRadius: "1rem",
             alignItems: "center",
             columnGap: "1rem",
-            padding:".5rem",
+            padding: ".5rem",
           }}
           key={index}
         >

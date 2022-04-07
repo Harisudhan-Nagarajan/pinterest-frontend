@@ -48,7 +48,7 @@ export function CreatePins() {
     data.append("category", selectedOption.value);
     console.log(data);
 
-    fetch("http://localhost:9000/pins/single", {
+    fetch("http://hari-pinterestbackend.herokuapp.com/pins/single", {
       method: "POST",
       headers: {
         "x-auth-token": sessionStorage.getItem("token"),
@@ -60,9 +60,6 @@ export function CreatePins() {
         result.json();
       })
       .then((data) => console.log(data))
-      .catch((err) => {
-        console.log(err.message);
-      });
   };
   return (
     <div style={{ paddingTop: "5rem", height: "35rem" }} id="post-img-bg">
@@ -135,7 +132,7 @@ export function CreatePins() {
             size="large"
             onChange={(event) => settitle(event.target.value)}
           />
-          <div style={{ display: "flex", alignItems: "center" ,gap:".5rem"}}>
+          <div style={{ display: "flex", alignItems: "center", gap: ".5rem" }}>
             <img
               src="https://upload.wikimedia.org/wikipedia/commons/0/08/Pinterest-logo.png"
               id="pinterestimg"
@@ -177,6 +174,7 @@ export function CreatePins() {
               <Button
                 disabled
                 variant="contained"
+                onClick={() => postimg()}
                 sx={{
                   backgroundColor: "#e60023",
                   color: "white",

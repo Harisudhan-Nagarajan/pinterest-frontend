@@ -6,20 +6,6 @@ import { UserContext } from "./Homedashboard";
 export function Home() {
   const { userdetials, setUserdetials } = useContext(UserContext);
 
-  // const fetchuser = async () => {
-  //   await fetch("https://hari-pinterestbackend.herokuapp.com/profile/Home", {
-  //     method: "get",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //       "x-auth-token": sessionStorage.getItem("token"),
-  //       username: sessionStorage.getItem("username"),
-  //     },
-  //   })
-  //     .then((data) => data.json())
-  //     .then((data) => console.log(data))
-  //     .catch((err) => console.log(err));
-  // };
-  // useEffect(fetchuser, []);
   return <div>{userdetials.setup ? <Feedselection /> : <Homefeeds />}</div>;
 }
 
@@ -149,73 +135,73 @@ function Feedselection() {
       title: "Food",
       img: "https://i.pinimg.com/564x/e2/34/d5/e234d531027f4c23a617e31fbd462731.jpg",
       key: 1,
-      value: false,
+      value: "food",
     },
     {
       title: "Bike",
       img: "https://i.pinimg.com/564x/c5/55/2a/c5552a7723f73d33b7d754df08920e69.jpg",
       key: 2,
-      value: false,
+      value: "bike",
     },
     {
       title: "Dog",
       img: "https://i.pinimg.com/236x/6a/95/83/6a958390de7924f68e1dfbd57d8c41d6.jpg",
       key: 3,
-      value: false,
+      value: "dog",
     },
     {
       title: "Marvel",
       img: "https://i.pinimg.com/564x/df/00/d7/df00d72954d282702871c698c18ee5c4.jpg",
       key: 4,
-      value: false,
+      value: "marvel",
     },
     {
       title: "Tecnology",
       img: "https://i.pinimg.com/564x/a4/47/7a/a4477ad60b21aa75981c01a955fafa40.jpg",
       key: 5,
-      value: false,
+      value: "tecnology",
     },
     {
       title: "Travel",
       img: "https://i.pinimg.com/564x/24/6b/62/246b62610fe5befa74be3fbcacec39c5.jpg",
       key: 6,
-      value: false,
+      value: "travel",
     },
     {
       title: "Fashion",
       img: "https://i.pinimg.com/564x/4f/cc/27/4fcc279536439deca3e7ff4ea6ee4ebf.jpg",
       key: 7,
-      value: false,
+      value: "fashion",
     },
     {
       title: "Love Qutoes",
       img: "https://i.pinimg.com/564x/95/2e/d8/952ed86a4328cf3b742933c6e1fe683e.jpg",
       key: 8,
-      value: false,
+      value: "love qutoes",
     },
     {
       title: "Drawing",
       img: "https://i.pinimg.com/564x/00/10/62/0010627b8772f4167bce63e31b091143.jpg",
       key: 9,
-      value: false,
+      value: "drawing",
     },
     {
       title: "Car",
       img: "https://i.pinimg.com/236x/e8/58/c1/e858c12921686832755e58dab3d7ca4b.jpg",
       key: 10,
-      value: false,
+      value: "car",
     },
     {
       title: "Nature",
       img: "https://i.pinimg.com/236x/12/aa/c9/12aac9a9f6b6433d1cf5b0db0d2fc8d5.jpg",
       key: 11,
-      value: false,
+      value: "nature",
     },
     {
       title: "Animals",
       img: "https://i.pinimg.com/236x/9c/31/32/9c3132b741594f7b6f0684f30eb08590.jpg",
       key: 12,
-      value: false,
+      value: "animals",
     },
   ];
 
@@ -337,7 +323,7 @@ function Btnmap({
           }}
           variant="contained"
           onClick={() => {
-            setselected_feedelements([...selected_feedelements, title]);
+            setselected_feedelements([...selected_feedelements, value]);
             setbtn(true);
           }}
         >
@@ -356,7 +342,7 @@ function Btnmap({
           onClick={() => {
             setselected_feedelements(
               selected_feedelements.filter(
-                (Currenttitle) => Currenttitle !== title
+                (Currenttitle) => Currenttitle !== value
               )
             );
 

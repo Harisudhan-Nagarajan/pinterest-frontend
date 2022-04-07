@@ -36,9 +36,7 @@ export function Homedashboard() {
   // const location = useLocation();
   const [path, setpath] = useState();
 
-  // if (path === "/Home/search" || path === "/Home/search/profile") {
-  //   setsearchvalue("");
-  // }
+
 
   const fetchuser = async () => {
     await fetch("https://hari-pinterestbackend.herokuapp.com/profile/Home", {
@@ -173,7 +171,7 @@ export function Homedashboard() {
                   }}
                 >
                   <img
-                    src={`https://hari-pinterestbackend.herokuapp.com${userdetials.profilepic}`}
+                    src={`https://hari-pinterestbackend.herokuapp.com/${userdetials.profilepic}`}
                     id="pinterestimg"
                   />
                 </IconButton>

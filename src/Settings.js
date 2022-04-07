@@ -3,30 +3,34 @@ import { useState, useEffect, useContext } from "react";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { UserContext } from "./Homedashboard";
+import { useHistory } from "react-router-dom";
 
 export const Settings = () => {
+  const History = useHistory();
   const { userdetials, setUserdetials } = useContext(UserContext);
+  const { errore, seterrors } = useState("");
 
   const changeimg = async (event) => {
     const data = new FormData();
     data.append("image", event.target.files[0]);
 
-    await fetch("http://localhost:9000/usersdetials/profilechange", {
-      method: "POST",
-      headers: {
-        "x-auth-token": sessionStorage.getItem("token"),
-        username: sessionStorage.getItem("username"),
-      },
-      body: data,
-    })
+    await fetch(
+      "http://hari-pinterestbackend.herokuapp.com/pins/profilechange",
+      {
+        method: "POST",
+        headers: {
+          "x-auth-token": sessionStorage.getItem("token"),
+          username: sessionStorage.getItem("username"),
+        },
+        body: data,
+      }
+    )
       .then((responce) => responce.json())
       .then((data) => {
+        console.log(data);
         if (data.path) {
           setUserdetials({ ...userdetials, profilepic: data.path });
         }
-      })
-      .catch((err) => {
-        console.log(err.message);
       });
   };
 
@@ -36,7 +40,7 @@ export const Settings = () => {
       .min(6, "name must be at least 6 characters")
       .max(12, "name must be at less then 12 characters")
       .required("name is required"),
-    username: yup
+    newusername: yup
       .string()
       .min(6, "Username must be at least 6 characters")
       .max(12, "Username must be at less then 12 characters")
@@ -49,7 +53,7 @@ export const Settings = () => {
         name: userdetials.name,
         about: userdetials.about,
         website: userdetials.website,
-        username: userdetials.username,
+        newusername: userdetials.username,
       },
       validationSchema: formvalidationSchema,
       onSubmit: async () => {
@@ -58,13 +62,21 @@ export const Settings = () => {
           {
             method: "POST",
             body: JSON.stringify(values),
-            headers: { "Content-Type": "application/json" },
+            headers: {
+              "Content-Type": "application/json",
+              "x-auth-token": sessionStorage.getItem("token"),
+              username: sessionStorage.getItem("username"),
+            },
           }
         )
           .then((responce) => responce.json())
           .then((data) => {
-            console.log(values);
-            console.log(data);
+            if (data.message === "success") {
+              setUserdetials({ ...userdetials, ...values });
+            }
+            if (data.message === "username already exists") {
+              seterrors("username already exists");
+            }
           });
       },
     });
@@ -91,7 +103,7 @@ export const Settings = () => {
                 width: "8rem",
                 borderRadius: "10rem",
               }}
-              src={`https://hari-pinterestbackend.herokuapp.com${userdetials.profilepic}`}
+              src={`https://hari-pinterestbackend.herokuapp.com/${userdetials.profilepic}`}
             />
 
             <label
@@ -145,10 +157,8 @@ export const Settings = () => {
             />
             <br />
             <br />
-            {touched.username && errors.username ? errors.username : ""}
+
             {touched.name && errors.name ? errors.name : ""}
-            {touched.website && errors.website ? errors.website : ""}
-            {touched.website && errors.website ? errors.website : ""}
             <small>About</small>
             <br />
             <textarea
@@ -204,11 +214,11 @@ export const Settings = () => {
             <small>Username</small>
             <br />
             <input
-              className="username"
-              id="username"
+              className="newusername"
+              id="newusername"
               onChange={handleChange}
               onBlur={handleBlur}
-              value={values.username}
+              value={values.newusername}
               type="text"
               placeholder="Choose wisely so others can find you"
               style={{
@@ -224,6 +234,10 @@ export const Settings = () => {
                 },
               }}
             />
+            {touched.newusername && errors.newusername
+              ? errors.newusername
+              : ""}
+            {errore ? "" : errore}
             <br />
             <br />
             <button type="sumbit">Save</button>
