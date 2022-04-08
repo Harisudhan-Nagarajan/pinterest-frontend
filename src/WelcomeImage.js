@@ -11,7 +11,7 @@ export function WelcomeImage() {
     "https://news.maxabout.com/wp-content/uploads/2019/10/Kawasaki-Ninja-ZX-25R-Official-1.jpg",
     "https://images.firstpost.com/wp-content/uploads/2021/03/chennaimural5-min.jpg",
     "https://s3images.zee5.com/wp-content/uploads/2021/08/dogs-age-years-kb-inline-200707_7d0bca498155db9ae60dd81dec0ba6ab.jpg",
-    "http://fashionstyle.guru/wp-content/uploads/2018/10/sherwani-202x300.png",
+    "https://fashionstyle.guru/wp-content/uploads/2018/10/sherwani-202x300.png",
     "https://www.southtourism.in/blog/wp-content/uploads/2020/01/pongal-festival-celebration.jpg",
     "https://www.un.org/sites/un2.un.org/files/styles/large-article-image-style-16-9/public/field/image/un0381303.jpg?itok=SaL3L4vb",
     "https://static.tweaktown.com/news/8/2/82744_01_earth-found-to-have-second-moon-but-it-wont-be-around-forever_full.jpg",
