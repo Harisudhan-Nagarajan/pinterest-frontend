@@ -49,7 +49,7 @@ export function CreatePins() {
     data.append("category", selectedOption.value);
     console.log(data);
 
-    fetch("http://hari-pinterestbackend.herokuapp.com/pins/single", {
+    fetch("https://hari-pinterestbackend.herokuapp.com/pins/single", {
       method: "POST",
       headers: {
         "x-auth-token": sessionStorage.getItem("token"),

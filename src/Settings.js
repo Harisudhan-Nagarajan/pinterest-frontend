@@ -15,7 +15,7 @@ export const Settings = () => {
     data.append("image", event.target.files[0]);
 
     await fetch(
-      "http://hari-pinterestbackend.herokuapp.com/pins/profilechange",
+      "https://hari-pinterestbackend.herokuapp.com/pins/profilechange",
       {
         method: "POST",
         headers: {
