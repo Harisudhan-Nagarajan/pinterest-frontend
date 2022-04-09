@@ -25,7 +25,7 @@ export function WelcomeImage() {
         Get your next <br />
         Ideas
       </h1>
-      <Box sx={{ minHeight: 829, paddingTop: "0rem", paddingLeft: "10px" }}>
+      <Box sx={{ paddingTop: "0rem", paddingLeft: "10px", }}>
         <Masonry columns={{ xs: 1, sm: 2, md: 4, lg: 5, xl: 6 }} spacing={1}>
           {imgarray.map((item, index) => (
             <div key={index}>

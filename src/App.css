@@ -2,12 +2,14 @@ body {
   margin: 0%;
   padding: 0%;
 }
+
 #pinterestimg {
   width: 2.5rem;
   height: 2.5rem;
   object-fit: scale-down;
   border-radius: 5rem;
 }
+
 #profile {
   display: flex;
   flex-direction: column;
@@ -138,16 +140,21 @@ body {
   left: 17.5rem;
   border-radius: 2rem;
 }
-.searchbox:focus + .searchdropdown {
+
+.searchbox:focus+.searchdropdown {
   /* outline: none !important; */
   display: block !important;
 }
+
 .searchdropdown:hover {
   display: block;
 }
-.container{
-  position: fixed;
+
+.container {
+  height: 45rem;
+  overflow: hidden;
 }
+
 #imgsearchbox {
   width: 15rem;
   height: 5rem;
@@ -195,7 +202,7 @@ body {
   background-color: white;
 }
 
-h3.create{
+h3.create {
   position: sticky;
   top: 4rem;
   text-align: center;
@@ -205,11 +212,11 @@ h3.create{
 
 
 
-#pinbtn:hover{
+#pinbtn:hover {
   background-color: #b9b6b6;
   cursor: zoom-in;
 }
 
-#profile-div:hover{
+#profile-div:hover {
   background-color: #f1f1f1;
 }

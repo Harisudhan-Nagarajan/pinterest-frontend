@@ -146,7 +146,7 @@ export function Welcome() {
 
   return (
     <div className="container">
-      <Box position="static" sx={{ color: "black", width: "auto" }}>
+      <Box position="static" sx={{ color: "black", width: "100%" }}>
         <Toolbar>
           <img
             src="https://upload.wikimedia.org/wikipedia/commons/0/08/Pinterest-logo.png"
