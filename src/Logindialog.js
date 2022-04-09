@@ -109,7 +109,12 @@ export function Logindialog({ loginpopup, setloginpopup }) {
               />
               {touched.password && errors.password ? errors.password : ""}
               <br />
-              <button onClick={() => History.push("/finduser")}>
+              <button
+                onClick={() => {
+                  setloginpopup(false);
+                  History.push("/finduser");
+                }}
+              >
                 <b>Forgotten your Password?</b>
               </button>
               <br /> <br />
