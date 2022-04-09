@@ -43,7 +43,6 @@ export function Checkuser() {
         <p>What's your username?</p>
 
         <TextField
-          autoFocus
           sx={{ width: "20rem" }}
           margin="dense"
           id="resetusername"
