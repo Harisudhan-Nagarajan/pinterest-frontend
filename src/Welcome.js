@@ -204,13 +204,13 @@ export function Welcome() {
       </Box>
 
       <Switch>
-        <Route exact path="*/finduser">
+        <Route exact path="/finduser">
           <Checkuser />
         </Route>
-        <Route path="/ /checkresetcode">
+        <Route path="/checkresetcode">
           <Checkresetcode />
         </Route>
-        <Route path="/ /passwordreset">
+        <Route path="/passwordreset">
           <Passwordreset setpasswordchange={setpasswordchange} />
         </Route>
         <Route path="/">
