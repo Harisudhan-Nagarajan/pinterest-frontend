@@ -11,7 +11,7 @@ function App() {
         <Route path="/Home">
           <Homedashboard />
         </Route>
-        <Route path="/**">
+        <Route path="/">
           <Welcome />
         </Route>
       </Switch>
