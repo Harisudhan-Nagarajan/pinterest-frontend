@@ -152,7 +152,7 @@ body {
 
 .container {
   height: 45rem;
-  overflow: hidden;
+  overflow-y: hidden;
 }
 
 #imgsearchbox {
