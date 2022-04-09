@@ -25,11 +25,14 @@ export function Logindialog({ loginpopup, setloginpopup }) {
       initialValues: { username: "", password: "" },
       validationSchema: formvalidationSchema,
       onSubmit: async (values) => {
-        await fetch("https://hari-pinterestbackend.herokuapp.com/signup_login/signin", {
-          method: "POST",
-          body: JSON.stringify(values),
-          headers: { "Content-Type": "application/json" },
-        })
+        await fetch(
+          "https://hari-pinterestbackend.herokuapp.com/signup_login/signin",
+          {
+            method: "POST",
+            body: JSON.stringify(values),
+            headers: { "Content-Type": "application/json" },
+          }
+        )
           .then((responce) => responce.json())
           .then((data) => {
             if (data.token) {
@@ -106,9 +109,9 @@ export function Logindialog({ loginpopup, setloginpopup }) {
               />
               {touched.password && errors.password ? errors.password : ""}
               <br />
-              <Link href="/finduser" underline="hover" sx={{ color: "black" }}>
+              <button onClick={() => History.push("/finduser")}>
                 <b>Forgotten your Password?</b>
-              </Link>
+              </button>
               <br /> <br />
               <Button
                 variant="contained"
