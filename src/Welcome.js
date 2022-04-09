@@ -204,7 +204,7 @@ export function Welcome() {
       </Box>
 
       <Switch>
-        <Route exact path="/ /finduser">
+        <Route exact path="*/finduser">
           <Checkuser />
         </Route>
         <Route path="/ /checkresetcode">
