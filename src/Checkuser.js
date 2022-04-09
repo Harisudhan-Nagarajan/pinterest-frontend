@@ -8,29 +8,34 @@ import * as yup from "yup";
 export function Checkuser() {
   const History = useHistory();
   const [fetcherror, setfetcherror] = useState("");
-  const { handleChange, handleBlur, handleSubmit, errors, values, touched } = useFormik({
-    initialValues: { resetusername: "" },
-    validationSchema: yup.object({
-      resetusername: yup.string().required("Username is required"),
-    }),
-    onSubmit: async (values) => {
-      await fetch("https://hari-pinterestbackend.herokuapp.com/signup_login/forgetpass", {
-        method: "POST",
-        body: JSON.stringify(values),
-        headers: { "Content-Type": "application/json" },
-      })
-        .then((responce) => responce.json())
-        .then((data) => {
-          if (data.message === "success") {
-            sessionStorage.setItem("resetusername", values.resetusername);
-            setfetcherror("");
-            History.push("/checkresetcode");
-            return;
+  const { handleChange, handleBlur, handleSubmit, errors, values, touched } =
+    useFormik({
+      initialValues: { resetusername: "" },
+      validationSchema: yup.object({
+        resetusername: yup.string().required("Username is required"),
+      }),
+      onSubmit: async (values) => {
+        await fetch(
+          "https://hari-pinterestbackend.herokuapp.com/signup_login/forgetpass",
+          {
+            method: "POST",
+            body: JSON.stringify(values),
+            headers: { "Content-Type": "application/json" },
           }
-          setfetcherror(data.message);
-        });
-    },
-  });
+        )
+          .then((responce) => responce.json())
+          .then((data) => {
+            console.log(data);
+            if (data.message === "success") {
+              sessionStorage.setItem("resetusername", values.resetusername);
+              setfetcherror("");
+              History.push("/checkresetcode");
+              return;
+            }
+            setfetcherror(data.message);
+          });
+      },
+    });
   return (
     <div>
       <form onSubmit={handleSubmit} id="Passwordreset-main-div">
@@ -47,7 +52,8 @@ export function Checkuser() {
           type="text"
           variant="standard"
           onChange={handleChange}
-          onBlur={handleBlur} />
+          onBlur={handleBlur}
+        />
         {touched.resetusername && errors.resetusername
           ? errors.resetusername
           : ""}

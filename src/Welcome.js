@@ -146,7 +146,7 @@ export function Welcome() {
 
   return (
     <div className="container">
-      <Box position="static" sx={{ color: "black" }}>
+      <Box position="static" sx={{ color: "black", width: "auto" }}>
         <Toolbar>
           <img
             src="https://upload.wikimedia.org/wikipedia/commons/0/08/Pinterest-logo.png"
@@ -204,16 +204,16 @@ export function Welcome() {
       </Box>
 
       <Switch>
-        <Route exact path="/">
+        <Route  path="/">
           <WelcomeImage />
         </Route>
-        <Route exact path="/finduser">
+        <Route  path="/finduser">
           <Checkuser />
         </Route>
-        <Route exact path="/checkresetcode">
+        <Route  path="/checkresetcode">
           <Checkresetcode />
         </Route>
-        <Route exact path="/passwordreset">
+        <Route  path="/passwordreset">
           <Passwordreset setpasswordchange={setpasswordchange} />
         </Route>
       </Switch>
@@ -225,7 +225,7 @@ export function Welcome() {
           setsignuppopup={setsignuppopup}
         />
       </div>
-      
+
       <Stack spacing={2} sx={{ width: "100%" }}>
         <Snackbar
           open={passwordchange}
