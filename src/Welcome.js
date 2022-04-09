@@ -207,13 +207,13 @@ export function Welcome() {
         <Route exact path="/">
           <WelcomeImage />
         </Route>
-        <Route exact path="/finduser/">
+        <Route exact path="/finduser">
           <Checkuser />
         </Route>
-        <Route exact path="/checkresetcode/">
+        <Route exact path="/checkresetcode">
           <Checkresetcode />
         </Route>
-        <Route exact path="/passwordreset/">
+        <Route exact path="/passwordreset">
           <Passwordreset setpasswordchange={setpasswordchange} />
         </Route>
       </Switch>
