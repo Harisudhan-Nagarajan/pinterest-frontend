@@ -12,18 +12,18 @@ export function CreatePins() {
   const [link, setlink] = useState(" ");
 
   const options = [
-    { value: "Animals", label: "Animals" },
-    { value: "Dog", label: "Dog" },
-    { value: "Bike", label: "Bike" },
-    { value: "Marvel", label: "Marvel" },
-    { value: "Tecnology", label: "Tecnology" },
-    { value: "Travel", label: "Travel" },
-    { value: "Fashion", label: "Fashion" },
-    { value: "Love Qutoes", label: "Love Qutoes" },
-    { value: "Drawing", label: "Drawing" },
-    { value: "Car", label: "Car" },
-    { value: "Nature", label: "Nature" },
-    { value: "Food", label: "Food" },
+    { value: "animals", label: "Animals" },
+    { value: "dog", label: "Dog" },
+    { value: "bike", label: "Bike" },
+    { value: "marvel", label: "Marvel" },
+    { value: "tecnology", label: "Tecnology" },
+    { value: "travel", label: "Travel" },
+    { value: "fashion", label: "Fashion" },
+    { value: "love Qutoes", label: "Love Qutoes" },
+    { value: "drawing", label: "Drawing" },
+    { value: "car", label: "Car" },
+    { value: "nature", label: "Nature" },
+    { value: "food", label: "Food" },
   ];
   const History = useHistory();
   const [selectedOption, setSelectedOption] = useState("");

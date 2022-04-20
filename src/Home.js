@@ -10,20 +10,24 @@ export function Home() {
 }
 
 function Homefeeds() {
-  // const fetchuser = async () => {
-  //   await fetch("https://hari-pinterestbackend.herokuapp.com/profile/Home", {
-  //     method: "get",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //       "x-auth-token": sessionStorage.getItem("token"),
-  //       username: sessionStorage.getItem("username"),
-  //     },
-  //   })
-  //     .then((data) => data.json())
-  //     .then((data) => console.log(data))
-  //     .catch((err) => console.log(err));
-  // };
-  // useEffect(fetchuser, []);
+  const [feeds, setfeed] = useState(null);
+  const fetchuser = async () => {
+    await fetch(
+      "https://hari-pinterestbackend.herokuapp.com/profile/HomeFeed",
+      {
+        method: "post",
+        headers: {
+          "Content-Type": "application/json",
+          "x-auth-token": sessionStorage.getItem("token"),
+          username: sessionStorage.getItem("username"),
+        },
+      }
+    )
+      .then((data) => data.json())
+      .then((data) => setfeed(data))
+      .catch((err) => console.log(err));
+  };
+  useEffect(fetchuser, []);
   const itemDat = [
     {
       img: "https://images.unsplash.com/photo-1549388604-817d15aa0110",
@@ -87,43 +91,49 @@ function Homefeeds() {
     },
   ];
   return (
-    <Box sx={{ minHeight: 829, paddingTop: "5rem" }}>
-      <Masonry columns={{ xs: 2, sm: 3, md: 4, lg: 5, xl: 6 }} spacing={2}>
-        {itemDat.map((item, index) => (
-          <div key={index}>
-            <button
-              id="pinbtn"
-              onClick={() => console.log("press")}
-              style={{
-                width: "100%",
-                height: "100%",
-                margin: "0",
-                padding: "0",
-                border: "none",
-                backgroundColor: "white",
-                "&:hover": {
-                  cursor: "zoom-in",
-                },
-              }}
-            >
-              <img
-                src={`${item.img}?w=162&auto=format`}
-                srcSet={`${item.img}?w=162&auto=format&dpr=2 2x`}
-                alt={item.title}
-                loading="lazy"
-                style={{
-                  borderBottomLeftRadius: 4,
-                  borderBottomRightRadius: 4,
-                  display: "block",
-                  width: "100%",
-                  borderRadius: "2rem",
-                }}
-              />
-            </button>
-          </div>
-        ))}
-      </Masonry>
-    </Box>
+    <div>
+      {feeds ? (
+        <Box sx={{ minHeight: 829, paddingTop: "5rem" }}>
+          <Masonry columns={{ xs: 2, sm: 3, md: 4, lg: 5, xl: 6 }} spacing={2}>
+            {feeds.map(({ path }, index) => (
+              <div key={index}>
+                <button
+                  id="pinbtn"
+                  onClick={() => console.log("press")}
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    margin: "0",
+                    padding: "0",
+                    border: "none",
+                    backgroundColor: "white",
+                    "&:hover": {
+                      cursor: "zoom-in",
+                    },
+                  }}
+                >
+                  <img
+                    src={`https://hari-pinterestbackend.herokuapp.com/${path}?w=162&auto=format`}
+                    srcSet={`https://hari-pinterestbackend.herokuapp.com/${path}?w=162&auto=format&dpr=2 2x`}
+                    alt={path}
+                    loading="lazy"
+                    style={{
+                      borderBottomLeftRadius: 4,
+                      borderBottomRightRadius: 4,
+                      display: "block",
+                      width: "100%",
+                      borderRadius: "2rem",
+                    }}
+                  />
+                </button>
+              </div>
+            ))}
+          </Masonry>
+        </Box>
+      ) : (
+        " "
+      )}
+    </div>
   );
 }
 

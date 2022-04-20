@@ -75,7 +75,7 @@ export function Homedashboard() {
     <UserContext.Provider value={values}>
       {userdetials ? (
         <div>
-          <div className="container">
+          <div >
             <Box
               position="fixed"
               sx={{ color: "black", backgroundColor: "white", width: "100%" }}
